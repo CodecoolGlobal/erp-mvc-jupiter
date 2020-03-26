@@ -10,7 +10,7 @@ import unittest
 
 from model import data_manager
 from model.hr import hr
-from test import check_forbidden_functions, get_subscribed_list, compare_lists
+from common_test import check_forbidden_functions, get_subscribed_list, compare_lists
 
 class HRTester(unittest.TestCase):
     data_file = "persons_test.csv"

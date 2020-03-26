@@ -10,7 +10,7 @@ import unittest
 
 from model import data_manager
 from model.store import store
-from test import check_forbidden_functions, get_count_by_manufacturer_list, compare_lists
+from common_test import check_forbidden_functions, get_count_by_manufacturer_list, compare_lists
 
 
 class StoreTester(unittest.TestCase):

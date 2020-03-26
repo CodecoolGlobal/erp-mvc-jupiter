@@ -10,7 +10,7 @@ from model import data_manager
 import unittest
 
 from model.crm import crm
-from test import check_forbidden_functions, get_subscribed_list, compare_lists
+from common_test import check_forbidden_functions, get_subscribed_list, compare_lists
 
 
 class CRMTester(unittest.TestCase):
