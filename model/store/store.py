@@ -17,12 +17,25 @@ def generate_random(table):
     Returns:
         string: Random and unique string
     """
+    id_list = []
+    generated = 0
+    for game in table:
+        id = game[0]
+        id_list.append(id)
 
-    generated = ''
+    expected_length = 8
+    while generated in id_list or len(generated) != expected_length:
+        quantity = 2
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        characters = '!@#$%^&*()_+=-{}[]|\:"<>,.?/'
+        random_letters = [random.choice(alphabet) for i in range (quantity)] + [random.choice(alphabet).upper() for i in range (quantity)]
+        random_characters = [random.choice(characters) for i in range (quantity)]
+        random_numbers = [str(random.randint(0, 9)) for i in range (quantity)]
+        generated_list = [letter for letter in random_letters] + [character for character in random_characters] + [digit for digit in random_numbers]
+        random.shuffle(generated_list)
+        generated = "".join(generated_list)
 
-    pass
-
-
+    return generated
 
 
 def create(table, record):
