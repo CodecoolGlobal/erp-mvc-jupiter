@@ -9,8 +9,16 @@ def get_table_from_file(file_name):
     Returns:
          list: List of lists read from a file.
     """
-    
 
+    with open(file_name, "r") as file:
+        lines = file.read().splitlines()
+
+    list_of_lists = []
+    for game in lines:
+        splitted_score = game.split(", ")
+        list_of_lists.append(splitted_score)
+    
+    return list_of_lists
 
 def write_table_to_file(file_name, table):
     """
