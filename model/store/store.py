@@ -166,13 +166,42 @@ def get_average_by_manufacturer(table, manufacturer):
     Returns:
          number
     """
+    
+    manufacturer_index = 2
+    price_index = 3
+    manufacturers_counter = 0
+    whole_price = 0
 
-    pass
+    for game in table:
+        game_manufacturer = game[manufacturer_index]
+        game_price = int(game[price_index])
+        if manufacturer == game_manufacturer:
+            whole_price = whole_price + game_price
+            manufacturers_counter += 1
 
+    average_price = whole_price / manufacturers_counter
+    return average_price
 
 def get_oldest_game(table):
-    pass
+    
+    date_index = 4
+    first_date = table[1][date_index]
+    first_list = first_date.split("-")
+    oldest_date = int(str(first_list[0]) + str(first_list[1]) + str(first_list[2]))
+    title_index = 1
 
+    for game in table[1:]:
+        game_date = game[date_index]
+        date_list = game_date.split("-")
+        date_formatted = int(str(date_list[0]) + str(date_list[1]) + str(date_list[2]))
+                
+        if date_formatted < oldest_date:
+            oldest_date = date_formatted
+            oldest_game = []
+            oldest_game.append(game[title_index])
+            oldest_game.append(game[date_index])
+    
+    return oldest_game
 
 def get_cheapest_game(table):
     pass
