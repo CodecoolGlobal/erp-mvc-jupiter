@@ -85,10 +85,19 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-
-    pass
-
-
+    updated_list = []
+    id_index = 0
+    for game in table:
+        id = game[id_index]
+        if id == id_:
+            updated_record = []
+            updated_record.append(id)
+            updated_record = updated_record + record
+            updated_list.append(updated_record)
+        else:
+            updated_list.append(game)
+    
+    return updated_list
 
 
 def delete(table, id_):
@@ -102,10 +111,14 @@ def delete(table, id_):
     Returns:
         list: Table without specified record.
     """
-
-    pass
-
-
+    updated_list = []
+    id_index = 0
+    for game in table:
+        id = game[id_index]
+        if id != id_:
+            updated_list.append(game)
+    
+    return updated_list
 
 
 # special functions:
@@ -121,8 +134,23 @@ def get_counts_by_manufacturers(table):
     Returns:
          dict: A dictionary with this structure: { [manufacturer] : [count] }
     """
+    game_index = 0
+    manufacturer_index = 2
+    manufacturers_counts = {}
 
-    pass
+    for game in table:
+        game_manufacturer = table[game_index][manufacturer_index]
+        manufacturers_counter = 0
+        compare_game_index = 0
+        if not game_manufacturer in manufacturers_counts:
+            for game in table:
+                compare_manufacturer = table[compare_game_index][manufacturer_index]
+                if game_manufacturer == compare_manufacturer:
+                    manufacturers_counter +=1
+                compare_game_index +=1
+            manufacturers_counts[game_manufacturer] = manufacturers_counter
+        game_index +=1
+    return manufacturers_counts
 
 
 def get_average_by_manufacturer(table, manufacturer):
