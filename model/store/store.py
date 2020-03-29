@@ -4,6 +4,25 @@
 import random
 from model import data_manager
 
+def check_table(table):
+    """
+    Checks if each row contains more than 1 manufacturer and merges them in one object
+
+    returns updated table
+    """
+    manufacturer_index = 2
+    expected_row_length = 5
+    checked_table = []
+    for game in table:
+        if len(game) > expected_row_length:
+            max_index = len(game) - expected_row_length + manufacturer_index + 1
+            game[manufacturer_index:max_index] = [", ".join(game[manufacturer_index:max_index])]
+        checked_table.append(game)
+
+    table[:] = checked_table
+
+    return table
+
 
 def generate_random(table):
     """
@@ -72,7 +91,6 @@ def read(table, id_):
             return game
 
 
-
 def update(table, id_, record):
     """
     Updates specified record in the table.
@@ -136,11 +154,14 @@ def get_counts_by_manufacturers(table):
     Returns:
          dict: A dictionary with this structure: { [manufacturer] : [count] }
     """
+
+    check_table(table)
+
     game_index = 0
     manufacturer_index = 2
     manufacturers_counts = {}
 
-    for game in table:
+    for game in table[1:]:
         game_manufacturer = table[game_index][manufacturer_index]
         manufacturers_counter = 0
         compare_game_index = 0
@@ -166,6 +187,8 @@ def get_average_by_manufacturer(table, manufacturer):
     Returns:
          number
     """
+
+    check_table(table)
     
     manufacturer_index = 2
     price_index = 3
@@ -182,7 +205,10 @@ def get_average_by_manufacturer(table, manufacturer):
     average_price = whole_price / manufacturers_counter
     return average_price
 
+
 def get_oldest_game(table):
+
+    check_table(table)
     
     date_index = 4
     first_date = table[1][date_index]
@@ -203,7 +229,10 @@ def get_oldest_game(table):
     
     return oldest_game
 
+
 def get_cheapest_game(table):
+
+    check_table(table)
 
     price_index = 3
     first_cheapest = table[1][price_index]
@@ -223,6 +252,9 @@ def get_cheapest_game(table):
 
 
 def get_age_by(title, table):
+
+    check_table(table)
+    
     current_year = 2020
     current_month = 4
     title_index = 1
@@ -248,6 +280,9 @@ def get_age_by(title, table):
 
 
 def get_game_by(keyword, table):
+
+    check_table(table)
+    
     game_index = 0
     title_index = 1
     for game in table:
