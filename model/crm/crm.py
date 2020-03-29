@@ -16,12 +16,20 @@ def generate_random(table):
     Returns:
         string: Random and unique string
     """
-
     generated = ''
 
-    pass
+    printables_letters_lower = 'abcdefghijklmnopqrstuvwxyz'
+    printables_letters_upper = printables_letters_lower.upper()
+    printables_numbers = '0123456789'
+    printables_specials = '!"#$%&\'()*+,-./:?@[\]^_`{|}~'
 
+    printables = [printables_letters_lower, printables_letters_upper, printables_numbers, printables_specials]
 
+    for printables_set in printables:
+        choices = random.choices(printables_set, k = 2)
+        generated = generated + choices[0] + choices[1]
+        generated = ''.join(random.sample(generated, len(generated)))
+    return generated
 
 
 def create(table, record):
@@ -35,9 +43,13 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
-    pass
+    row = table[-1].copy()
 
-
+    for index in range(len(row)):
+        row[index] = record[index]
+    
+    table.append(row)
+    return table
 
 
 def read(table, id_):
@@ -139,3 +151,16 @@ def get_email_by(surname, table):
 
 def get_first_name_by(surname, table):
     pass
+
+
+# TEMPORARY FUNCTIONS BELOW----------------------------------- 
+def main():
+    table = [[1, 'John', 'Orange'],[2, 'Mark', 'Kiwi'],[3, 'Susan', 'Grapes']]
+    row = [4, 'Joanna', 'Apple']
+
+    table = create(table, row)
+    print(table)
+
+
+if __name__ == '__main__':
+    main()
