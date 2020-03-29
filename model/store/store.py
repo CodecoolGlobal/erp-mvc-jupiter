@@ -96,8 +96,9 @@ def update(table, id_, record):
             updated_list.append(updated_record)
         else:
             updated_list.append(game)
-    
-    return updated_list
+
+    table[:] = updated_list
+    return table
 
 
 def delete(table, id_):
@@ -118,8 +119,9 @@ def delete(table, id_):
         if id != id_:
             updated_list.append(game)
     
-    return updated_list
-
+    table[:] = updated_list
+    return table
+   
 
 # special functions:
 # ------------------
