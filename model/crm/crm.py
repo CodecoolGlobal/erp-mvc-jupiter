@@ -126,11 +126,11 @@ def get_longest_name_id(table):
 
     for record in table: 
         if len(table[NAME]) > len(longest_name):
-            longest_name = table[NAME]
-            longest_name_id = table[ID]
+            longest_name = record[NAME]
+            longest_name_id = record[ID]
         elif len(table[NAME]) == len(longest_name):
-            if longest_name > table[NAME]:
-                longest_name_id = table[ID]
+            if longest_name > record[NAME]:
+                longest_name_id = record[ID]
     
     return longest_name_id
 
@@ -224,4 +224,3 @@ def get_email_by(surname, table):
 
 def get_first_name_by(surname, table):
     pass
-
