@@ -4,6 +4,12 @@
 import random
 from model import data_manager
 
+ID = 0
+NAME = 1
+EMAIL = 2
+BIRTHDATE = 3
+SUBSCRIBED = 4
+
 def generate_random(table):
     """
     Generates random and unique string. Used for id/key generation:
@@ -43,12 +49,7 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
-    row = table[-1].copy()
-
-    for index in range(len(row)):
-        row[index] = record[index]
-    
-    table.append(row)
+    table.append(record)
     return table
 
 
@@ -63,9 +64,9 @@ def read(table, id_):
     Returns:
         list: record
     """
-    pass
+    record = table[id_]
 
-
+    return record
 
 
 def update(table, id_, record):
@@ -80,10 +81,9 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-
-    pass
-
-
+    table[id_] = record 
+    
+    return table
 
 
 def delete(table, id_):
@@ -97,10 +97,8 @@ def delete(table, id_):
     Returns:
         list: Table without specified record.
     """
-
-    pass
-
-
+    table.pop(id_)
+    return table
 
 
 # special functions:
@@ -117,8 +115,18 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
+    longest_name = ""
+    longest_name_id = ""
 
-    pass
+    for record in table: 
+        if len(table[NAME]) > len(longest_name):
+            longest_name = table[NAME]
+            longest_name_id = table[ID]
+        elif len(table[NAME]) == len(longest_name):
+            if longest_name < table[NAME]:
+                longest_name_id = table[ID]
+    
+    return longest_name_id
 
 
 # the question: Which customers has subscribed to the newsletter?
@@ -154,13 +162,17 @@ def get_first_name_by(surname, table):
 
 
 # TEMPORARY FUNCTIONS BELOW----------------------------------- 
-def main():
-    table = [[1, 'John', 'Orange'],[2, 'Mark', 'Kiwi'],[3, 'Susan', 'Grapes']]
-    row = [4, 'Joanna', 'Apple']
+# def main():
+#     table = [[1, 'John', 'Orange'],[2, 'Mark', 'Kiwi'],[3, 'Susan', 'Grapes']]
+#     row = [4, 'Joanna', 'Apple']
 
-    table = create(table, row)
-    print(table)
+#     table = create(table, row)
+#     print(table)
+
+#     updated_record = [1, 'Mike', 'Banana']
+#     update(table, 0, updated_record)
+#     print(table)
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
