@@ -18,7 +18,7 @@ def get_table_from_file(file_name):
         splitted_score = game.split(", ")
         list_of_lists.append(splitted_score)
     
-    return list_of_lists
+    return list_of_lists[1:]
 
 def write_table_to_file(file_name, table):
     """
