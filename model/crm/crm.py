@@ -225,18 +225,3 @@ def get_email_by(surname, table):
 def get_first_name_by(surname, table):
     pass
 
-
-# TEMPORARY FUNCTIONS BELOW----------------------------------- 
-# def main():
-#     table = [['kH38Jm#&', 'Lieselotte Rainey', 'hv8@qsuotla508.com', '1953-04-06', 1],
-#         ['kH14Ju#&', 'Adrianna Verduzco', 'i-4371v-.rhck@qe8yy3d.com', '1953-10-11', 0],
-#         ['eH34Jd#&', 'Maude Toll', 't1ytt@vpm5xkvn.com', '1954-01-16', 1]]
-
-#     print(table)
-
-#     print(get_youngest_customer(table))
-
-
-
-# if __name__ == '__main__':
-#     main()
