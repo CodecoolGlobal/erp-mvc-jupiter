@@ -248,4 +248,10 @@ def get_age_by(title, table):
 
 
 def get_game_by(keyword, table):
-    pass
+    game_index = 0
+    title_index = 1
+    for game in table:
+        title_indexed = game[title_index].split(" ")
+        if keyword in title_indexed:
+            return table[game_index]
+        game_index += 1
