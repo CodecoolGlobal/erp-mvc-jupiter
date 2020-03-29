@@ -204,11 +204,47 @@ def get_oldest_game(table):
     return oldest_game
 
 def get_cheapest_game(table):
-    pass
+
+    price_index = 3
+    first_cheapest = table[1][price_index]
+    cheapest_price = int(first_cheapest)
+    title_index = 1
+
+    for game in table[1:]:
+        game_price = int(game[price_index])
+                
+        if game_price < cheapest_price:
+            cheapest_price = game_price
+            cheapest_game = []
+            cheapest_game.append(game[title_index])
+            cheapest_game.append(game_price)
+    
+    return cheapest_game
 
 
 def get_age_by(title, table):
-    pass
+    current_year = 2020
+    current_month = 4
+    title_index = 1
+    date_index = 4
+
+    for game in table:
+        game_title = game[title_index]
+        game_date = game[date_index]
+        if game_title == title:
+            game_date_list = game_date.split("-")
+            game_year = int(game_date_list[0])
+            game_month = int(game_date_list[1])
+            if (current_month - game_month) < 0:
+                age = current_year - game_year - 1
+            else:
+                age = current_year - game_year
+
+            age_by_title = []
+            age_by_title.append(game[title_index])
+            age_by_title.append(age)
+            
+    return age_by_title
 
 
 def get_game_by(keyword, table):
