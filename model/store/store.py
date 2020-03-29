@@ -18,7 +18,7 @@ def generate_random(table):
         string: Random and unique string
     """
     id_list = []
-    generated = 0
+    generated = ""
     for game in table:
         id = game[0]
         id_list.append(id)
@@ -49,9 +49,9 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
-    pass
-
-
+    
+    table.append(record)
+    return table
 
 
 def read(table, id_):
@@ -65,8 +65,11 @@ def read(table, id_):
     Returns:
         list: record
     """
-    pass
-
+    id_index = 0
+    for game in table:
+        id = game[id_index]
+        if id == id_:
+            return game
 
 
 
