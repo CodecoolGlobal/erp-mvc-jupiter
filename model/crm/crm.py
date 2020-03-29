@@ -2,6 +2,8 @@
 
 # everything you'll need is imported:
 import random
+import datetime
+
 from model import data_manager
 
 ID = 0
@@ -64,9 +66,9 @@ def read(table, id_):
     Returns:
         list: record
     """
-    record = table[id_]
-
-    return record
+    for record in table:
+        if record[ID] == id_:
+            return record
 
 
 def update(table, id_, record):
@@ -81,8 +83,10 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-    table[id_] = record 
-    
+    for row in table:
+        if row[ID] == id_:
+            for index in range(len(record)):
+                record[index] = row[index]
     return table
 
 
@@ -97,8 +101,10 @@ def delete(table, id_):
     Returns:
         list: Table without specified record.
     """
-    table.pop(id_)
-    return table
+    for record_index in range(len(table)):
+        if table[record_index][ID] == id_:
+            table.pop(record_index)
+            return table
 
 
 # special functions:
@@ -123,7 +129,7 @@ def get_longest_name_id(table):
             longest_name = table[NAME]
             longest_name_id = table[ID]
         elif len(table[NAME]) == len(longest_name):
-            if longest_name < table[NAME]:
+            if longest_name > table[NAME]:
                 longest_name_id = table[ID]
     
     return longest_name_id
@@ -141,19 +147,78 @@ def get_subscribed_emails(table):
         Returns:
             list: list of strings (where a string is like "email;name")
         """
+    subscribed_list = []    
+    for record in table:
+        if record[SUBSCRIBED] == 1:
+            subscriber_record = record[EMAIL] + ";" + record[NAME]
+            subscribed_list.append(subscriber_record)
 
-    pass
+    return subscribed_list
 
 
 def get_youngest_customer(table):
-    pass
+    """
+        Question: What is the name of the youngest customer?
+
+        Args:
+            table (list): data table to work on
+
+        Returns:
+            int: age of the yougest customer (full years)
+        """
+
+    
+    youngest_birthdate ='0001-01-01'
+    youngest_customer = []
+
+    for record in table:
+        current_birthdate = record[BIRTHDATE].translate([None, "-"])
+        if current_birthdate > youngest_birthdate.translate([None, "-"]):
+            youngest_birthdate = current_birthdate
+            youngest_customer = record
+
+    return youngest_customer
 
 
 def get_age_by(surname, table):
-    pass
+    """ Return age of username with given surname
+    
+    Args:
+    string: customer surname
+    table (list): data table to work on
+
+    Return:
+    int: age of customer
+     """
+    current_firstname = 0
+    current_surname = 1
+    user_birthdate = ""
+
+    for record in table:
+        name = record[NAME].split(" ")
+        if name[current_surname] == surname:
+            user_birthdate = record[BIRTHDATE]
+
+    today = datetime.date.today()
+    input_date = datetime.date(int(todays_date[year]), int(todays_date[month]), int(todays_date[day]))
+    this_year_birthday = datetime.date(today.year, input_date.month, input_date.day)
+    if this_year_birthday < today:
+        years = today.year - input_date.year
+    else:
+        years = today.year - input_date.year - 1
+    return years
 
 
 def get_email_by(surname, table):
+    """ Return email of user with given surname, if same surname repeats return last occurance,
+        (if there are more than one, return the last by alphabetical order of the names).
+
+        Args: 
+        str: user surname 
+        table (list): data table to work on
+
+        Return:
+        str: user email"""
     pass
 
 
@@ -163,15 +228,14 @@ def get_first_name_by(surname, table):
 
 # TEMPORARY FUNCTIONS BELOW----------------------------------- 
 # def main():
-#     table = [[1, 'John', 'Orange'],[2, 'Mark', 'Kiwi'],[3, 'Susan', 'Grapes']]
-#     row = [4, 'Joanna', 'Apple']
+#     table = [['kH38Jm#&', 'Lieselotte Rainey', 'hv8@qsuotla508.com', '1953-04-06', 1],
+#         ['kH14Ju#&', 'Adrianna Verduzco', 'i-4371v-.rhck@qe8yy3d.com', '1953-10-11', 0],
+#         ['eH34Jd#&', 'Maude Toll', 't1ytt@vpm5xkvn.com', '1954-01-16', 1]]
 
-#     table = create(table, row)
 #     print(table)
 
-#     updated_record = [1, 'Mike', 'Banana']
-#     update(table, 0, updated_record)
-#     print(table)
+#     print(get_youngest_customer(table))
+
 
 
 # if __name__ == '__main__':
