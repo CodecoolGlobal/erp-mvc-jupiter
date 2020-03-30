@@ -149,8 +149,8 @@ def get_subscribed_emails(table):
         """
     subscribed_list = []    
     for record in table:
-        if record[SUBSCRIBED] == 1:
-            subscriber_record = record[EMAIL] + ";" + record[NAME]
+        if record[SUBSCRIBED]:
+            subscriber_record = record[EMAIL].rstrip() + ";" + record[NAME]
             subscribed_list.append(subscriber_record)
 
     return subscribed_list
@@ -190,6 +190,7 @@ def get_age_by(surname, table):
     Return:
     int: age of customer
      """
+
     current_firstname = 0
     current_surname = 1
     user_birthdate = ""
@@ -199,13 +200,21 @@ def get_age_by(surname, table):
         if name[current_surname] == surname:
             user_birthdate = record[BIRTHDATE]
 
+    year = 0
+    month = 1
+    day = 2
+
+    user_birthdate = user_birthdate.split("-")
+
     today = datetime.date.today()
-    input_date = datetime.date(int(todays_date[year]), int(todays_date[month]), int(todays_date[day]))
-    this_year_birthday = datetime.date(today.year, input_date.month, input_date.day)
-    if this_year_birthday < today:
-        years = today.year - input_date.year
+    today_conversion = today.strftime('%Y/%m/%d')
+    today_conversion = today_conversion.split("/")
+    this_year_birthday = datetime.date(int(today_conversion[year]), int(user_birthdate[month]), int(user_birthdate[day]))
+    if this_year_birthday > today:
+        years = int(today_conversion[year]) - int(user_birthdate[year])
     else:
-        years = today.year - input_date.year - 1
+        years = int(today_conversion[year]) - int(user_birthdate[year]) - 1
+
     return years
 
 
