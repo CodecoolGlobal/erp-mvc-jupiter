@@ -219,8 +219,7 @@ def get_age_by(surname, table):
 
 
 def get_email_by(surname, table):
-    """ Return email of user with given surname, if same surname repeats return last occurance,
-        (if there are more than one, return the last by alphabetical order of the names).
+    """ Return email of user with given surname.
 
         Args: 
         str: user surname 
@@ -228,8 +227,36 @@ def get_email_by(surname, table):
 
         Return:
         str: user email"""
-    pass
+
+    current_firstname = 0
+    current_surname = 1
+    user_email = ""
+
+    for record in table:
+        name = record[NAME].split(" ")
+        if name[current_surname] == surname:
+            user_email = record[EMAIL]
+
+    return user_email
 
 
 def get_first_name_by(surname, table):
-    pass
+    """ Return email of user with given surname.
+
+        Args: 
+        str: user surname 
+        table (list): data table to work on
+
+        Return:
+        str: user email"""
+
+    current_firstname = 0
+    current_surname = 1
+    user_firstname = ""
+
+    for record in table:
+        name = record[NAME].split(" ")
+        if name[current_surname] == surname:
+            user_firstname = name[current_firstname]
+
+    return user_firstname
