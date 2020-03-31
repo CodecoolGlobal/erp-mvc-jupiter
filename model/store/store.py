@@ -7,6 +7,7 @@ from model import data_manager
 def check_table(table):
     """
     Checks if each row contains more than 1 manufacturer and merges them in one object
+    Cuts the first row of the table if it is not a part of data table
 
     returns updated table
     """
@@ -20,6 +21,12 @@ def check_table(table):
         checked_table.append(game)
 
     table[:] = checked_table
+
+    price_index = 3
+    first_row = table[0]
+
+    if not first_row[price_index].isdigit():
+        table[:] = table[1:]
 
     return table
 
@@ -68,6 +75,7 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
+    check_table(table)
     
     table.append(record)
     return table
@@ -84,6 +92,8 @@ def read(table, id_):
     Returns:
         list: record
     """
+    check_table(table)
+
     id_index = 0
     for game in table:
         id = game[id_index]
@@ -103,6 +113,9 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
+
+    check_table(table)
+
     updated_list = []
     id_index = 0
     for game in table:
@@ -130,6 +143,8 @@ def delete(table, id_):
     Returns:
         list: Table without specified record.
     """
+    check_table(table)
+
     updated_list = []
     id_index = 0
     for game in table:
@@ -161,7 +176,7 @@ def get_counts_by_manufacturers(table):
     manufacturer_index = 2
     manufacturers_counts = {}
 
-    for game in table[1:]:
+    for game in table:
         game_manufacturer = table[game_index][manufacturer_index]
         manufacturers_counter = 0
         compare_game_index = 0
@@ -207,7 +222,15 @@ def get_average_by_manufacturer(table, manufacturer):
 
 
 def get_oldest_game(table):
+    """
+    Question: What is the title of the oldest game in the file?
 
+    Args:
+        table (list): data table to work on
+
+    Returns:
+         list: [Title, Date]
+    """
     check_table(table)
     
     date_index = 4
@@ -231,6 +254,15 @@ def get_oldest_game(table):
 
 
 def get_cheapest_game(table):
+    """
+    Question: What is the title of the cheapest game in the file?
+
+    Args:
+        table (list): data table to work on
+
+    Returns:
+         list: [Title, Price]
+    """
 
     check_table(table)
 
@@ -239,7 +271,7 @@ def get_cheapest_game(table):
     cheapest_price = int(first_cheapest)
     title_index = 1
 
-    for game in table[1:]:
+    for game in table:
         game_price = int(game[price_index])
                 
         if game_price < cheapest_price:
@@ -252,6 +284,16 @@ def get_cheapest_game(table):
 
 
 def get_age_by(title, table):
+    """
+    Question: What is the age of the given game title?
+
+    Args:
+        table (list): data table to work on
+        title (str): title of the game
+
+    Returns:
+         list: [Title, Age in years]
+    """
 
     check_table(table)
     
@@ -280,6 +322,17 @@ def get_age_by(title, table):
 
 
 def get_game_by(keyword, table):
+
+    """
+    Question: What are the properties of the game by the given keyword?
+
+    Args:
+        keyword(str): keyword to search by
+        table (list): data table to work on
+
+    Returns:
+         list: line with all properties of the game found
+    """
 
     check_table(table)
     
