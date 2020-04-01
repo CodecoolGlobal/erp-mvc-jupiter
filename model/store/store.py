@@ -4,6 +4,11 @@
 import random
 from model import data_manager
 
+def get_table():
+    file = "model/store/games.csv"
+    table = data_manager.get_table_from_file(file)
+    return table
+
 def check_table(table):
     """
     Checks if each row contains more than 1 manufacturer and merges them in one object

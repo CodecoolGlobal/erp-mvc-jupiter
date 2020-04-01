@@ -100,6 +100,11 @@ def get_choice(options):
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 
+def get_choice_store(welcome, options):
+    print_menu(welcome,options, "Go back to the main menu")
+    inputs = get_inputs(["Please choose your function: "], "")
+    return inputs[0]
+
 
 def print_error_message(message):
     """

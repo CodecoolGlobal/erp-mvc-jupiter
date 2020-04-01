@@ -11,18 +11,31 @@ def run():
     Returns:
         None
     """
-    options = ["Function 1",
-               "Function 2",
-               "Function 3"]
+    options = ["Get counts of all manufacturers",
+               "Get the oldest game",
+               "Get cheapest game"]
+
+
+    welcome = """
+                 _______.___________.  ______   .______       _______    .___  ___.   ______    _______   __    __   __       _______ 
+                /       |           | /  __  \  |   _  \     |   ____|   |   \/   |  /  __  \  |       \ |  |  |  | |  |     |   ____|
+               |   (----`---|  |----`|  |  |  | |  |_)  |    |  |__      |  \  /  | |  |  |  | |  .--.  ||  |  |  | |  |     |  |__   
+                \   \       |  |     |  |  |  | |      /     |   __|     |  |\/|  | |  |  |  | |  |  |  ||  |  |  | |  |     |   __|  
+            .----)   |      |  |     |  `--'  | |  |\  \----.|  |____    |  |  |  | |  `--'  | |  '--'  ||  `--'  | |  `----.|  |____ 
+            |_______/       |__|      \______/  | _| `._____||_______|   |__|  |__|  \______/  |_______/  \______/  |_______||_______|
+                                                                                                                                      
+    """
+
+    table = store.get_table()
 
     choice = None
     while choice != "0":
-        choice = terminal_view.get_choice(options)
+        choice = terminal_view.get_choice_store(welcome, options)
         if choice == "1":
-            store_controller.run()
+            print(store.get_counts_by_manufacturers(table))
         elif choice == "2":
-            hr_controller.run()
+            print(store.get_oldest_game(table))
         elif choice == "3":
-            crm_controller.run()
+            print(store.get_cheapest_game(table))
         else:
             terminal_view.print_error_message("There is no such choice.")
