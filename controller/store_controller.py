@@ -11,5 +11,18 @@ def run():
     Returns:
         None
     """
+    options = ["Function 1",
+               "Function 2",
+               "Function 3"]
 
-    pass
+    choice = None
+    while choice != "0":
+        choice = terminal_view.get_choice(options)
+        if choice == "1":
+            store_controller.run()
+        elif choice == "2":
+            hr_controller.run()
+        elif choice == "3":
+            crm_controller.run()
+        else:
+            terminal_view.print_error_message("There is no such choice.")
