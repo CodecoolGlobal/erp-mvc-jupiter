@@ -82,8 +82,8 @@ def update(table, id_, record):
     """
     for row in table:
         if row[ID] == id_:
-            for index in range(len(row)):
-                row[index] = record[index]
+            for index in range(len(record)):
+                row[index + 1] = record[index]
     return table
     
 
@@ -117,21 +117,23 @@ def get_oldest_person(table):
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
     """
-    oldest_persons = []
-    oldest_birth_date = [3000,0,0] # asume we'r dealing with already born 
+    # to do: extract inner loops into separate functions (e.g. compare_months, compare_days)
+    
+    oldest_birth_date = [3000, 0, 0]  # asume we'r dealing with already born --> that should be another constant
     for row in table:
-        splited_birth_date = row[BIRTH_DATE].split('-') # unify types to int
-        if splited_birth_date[0] <= oldest_birth_date[0]:
-            if splited_birth_date[0] == oldest_birth_date[0] and splited_birth_date[1] <= oldest_birth_date[1]:
-                if splited_birth_date[1] == oldest_birth_date[1] and splited_birth_date[2] < oldest_birth_date[2]:                   
-                    oldest_birth_date = splited_birth_date   
-                oldest_birth_date = splited_birth_date        
-            oldest_birth_date = splited_birth_date        
-
-    for row in table:        
+        splited_birth_date = row[BIRTH_DATE].split('-')
+        if int(splited_birth_date[0]) <= int(oldest_birth_date[0]):
+            if int(splited_birth_date[0]) == int(oldest_birth_date[0]) and int(splited_birth_date[1]) <= int(oldest_birth_date[1]):
+                if int(splited_birth_date[1]) == int(oldest_birth_date[1]) and int(splited_birth_date[2]) < int(oldest_birth_date[2]):
+                    oldest_birth_date = splited_birth_date
+                oldest_birth_date = splited_birth_date
+            oldest_birth_date = splited_birth_date
+                 
+    oldest_persons = []
+    for row in table:
         if row[BIRTH_DATE] == '-'.join(oldest_birth_date):
             oldest_persons.append(row[NAME])
-
+    
     return oldest_persons
 
 
@@ -149,7 +151,7 @@ def get_persons_closest_to_average_salary(table):
     sum = 0
     for row in table:
         sum += int(row[SALARY])
-    avg_sal = sum / len(table) # check for reminder isues
+    avg_sal = sum / len(table)  # check for reminder isues
 
     diff_list = []
     for row in table:
@@ -157,10 +159,10 @@ def get_persons_closest_to_average_salary(table):
         diff_list.append(diff)
     
     smallest_diff = diff_list[0]
-    for i in range(len(diff_list)):
-        if diff_list[i] < smallest_diff:
-            smallest_diff = diff_list[i]
-            closest_salary = table[i][SALARY]
+    for row_index in range(len(diff_list)):
+        if diff_list[row_index] < smallest_diff:
+            smallest_diff = diff_list[row_index]
+            closest_salary = table[row_index][SALARY]
     
     persons_closest_to_average_salary = []
     for row in table:
@@ -201,7 +203,7 @@ def get_shortest_surname(table):
         if len(names_list[i]) == shortest_name_lenght:
             shortest_surnames.append(names_list[i])
     
-    return shortest_surnames
+    return shortest_surnames[0]
 
 
 def get_age_by(surname, table):
@@ -216,9 +218,9 @@ def get_age_by(surname, table):
     for row in table:
         splited_name = row[NAME].split(' ')
         if splited_name[1] == surname:
-            age = 2020 - int(row[BIRTH_DATE][:4]) # string slicing
+            age = 2019 - int(row[BIRTH_DATE][:4])  # string slicing
 
-    return age # fix to check full date --> but how to without datetime module?
+    return age 
     
 
 def get_email_by(surname, table):
@@ -233,7 +235,6 @@ def get_email_by(surname, table):
     """
     record_index = get_record_by_surname(surname, table)
     email = table[record_index][EMAIL]
-
     return email
 
 
@@ -268,5 +269,4 @@ def get_record_by_surname(surname, table):
         splited_name = table[i][NAME].split(' ')
         if splited_name[1] == surname:
             record_index = i
-
     return record_index
