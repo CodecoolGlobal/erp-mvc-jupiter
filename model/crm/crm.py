@@ -6,6 +6,8 @@ import datetime
 
 from model import data_manager
 
+# TABLE = data_manager.get_table_from_file('customers.csv')
+
 ID = 0
 NAME = 1
 EMAIL = 2
@@ -83,10 +85,25 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
+    # for row in table:
+    #     if row[ID] == id_:
+    #         row = []
+    #         row.append(id_)
+    #         row.append("lala")       
+    # return table
+
+    # kopia ze store.py
+    updated_table = []
     for row in table:
         if row[ID] == id_:
-            for index in range(len(record)):
-                record[index] = row[index]
+            updated_record = []
+            updated_record.append(row[ID])
+            updated_record = updated_record + record
+            updated_table.append(updated_record)
+        else:
+            updated_table.append(row)
+
+    table[:] = updated_table
     return table
 
 
