@@ -21,8 +21,13 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    #pass
+    for title in title_list:
+        print(title, end='  ')
+    print('\n')
+    for i in range(0, len(table) + 1):
+        for element in table[i]:
+            print(element, end=' ')
+        print('\n')
 
 
 def print_result(result, label):
@@ -37,7 +42,12 @@ def print_result(result, label):
         None: This function doesn't return anything it only prints to console.
     """
 
-    pass
+    if result is str or dict:
+        print(label + " " + result)
+    elif result is list:
+        print(label)
+        for element in result:
+            print(element, end=' ')
 
 
 def print_menu(title, list_options, exit_message):
@@ -63,9 +73,9 @@ def print_menu(title, list_options, exit_message):
     order_number = 1
     print(title)
     for option in list_options:
-        print("(" + str(order_number) + ")", option)
+        print("     (" + str(order_number) + ") ", option)
         order_number += 1
-    print("(0)", exit_message)
+    print("     (0) ", exit_message)
 
 
 def get_inputs(list_labels, title):
@@ -96,12 +106,13 @@ def get_inputs(list_labels, title):
 
 
 def get_choice(options):
-    print_menu("Main menu",options, "Exit program")
+    print_menu("Main menu", options, "Exit program")
     inputs = get_inputs(["Please enter a number: "], "")
     return inputs[0]
 
+
 def get_choice_store(welcome, options):
-    print_menu(welcome,options, "Go back to the main menu")
+    print_menu(welcome, options, "Go back to the main menu")
     inputs = get_inputs(["Please choose your function: "], "")
     return inputs[0]
 
@@ -116,5 +127,4 @@ def print_error_message(message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    pass
+    print("Error: " + message)
