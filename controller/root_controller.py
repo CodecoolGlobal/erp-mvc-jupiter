@@ -3,6 +3,8 @@ from view import terminal_view
 from controller import store_controller
 from controller import hr_controller
 from controller import crm_controller
+# additional libary
+import sys
 
 
 def run():
@@ -19,5 +21,8 @@ def run():
             hr_controller.run()
         elif choice == "3":
             crm_controller.run()
+        elif choice == "0":
+            terminal_view.print_result("Godbye", "")
+            sys.exit()
         else:
             terminal_view.print_error_message("There is no such choice.")
