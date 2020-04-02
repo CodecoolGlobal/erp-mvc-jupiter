@@ -22,24 +22,45 @@ def run():
               "Return to main menu"]
 
     choice = None
-    while choice != "0":
+
+    while choice != "7":
         choice = terminal_view.get_choice(options)
         if choice == "1":
-            crm.get_longest_name_id(TABLE)
+            label = "Id of user with longest name id:"
+            result = crm.get_longest_name_id(TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "2":
-            crm.get_subscribed_emails(TABLE)
+            label = "Customers subscribed to newsletter:"
+            result = crm.get_subscribed_emails(TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "3":
-            crm.get_youngest_customer(TABLE)
+            label = "Youngest customer name:"
+            result = crm.get_youngest_customer(TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "4":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
-            crm.get_age_by(surname, TABLE)
+            result = crm.get_age_by(surname, TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "5":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
-            crm.get_email_by(surname, TABLE)
+            result = crm.get_email_by(surname, TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "6":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
-            crm.get_first_name_by(surname, TABLE)
+            result = crm.get_first_name_by(surname, TABLE)
+            terminal_view.print_result(result, label)
+
         elif choice == "7":
-            root_controller.run()
+            terminal_view.print_result("Returning to main menu", "")
+
+        elif choice == "0":
+            terminal_view.print_result("", "Goodbye")
+            quit()
+
         else:
             terminal_view.print_error_message("There is no such choice.")
