@@ -42,12 +42,16 @@ def print_result(result, label):
         None: This function doesn't return anything it only prints to console.
     """
 
-    if result is str or dict:
-        print(label + " " + result)
-    elif result is list:
+    if isinstance(result, list):
         print(label)
         for element in result:
-            print(element, end=' ')
+            print(element, end=' | ')
+    elif isinstance(result, dict):
+        print(label)
+        for key in result:
+            print(key, ":", result[key])
+    else:
+        print(label, result)
 
 
 def print_menu(title, list_options, exit_message):
