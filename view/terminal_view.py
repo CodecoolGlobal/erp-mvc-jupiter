@@ -21,13 +21,38 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    for title in title_list:
-        print(title, end='  ')
-    print('\n')
-    for i in range(0, len(table) + 1):
-        for element in table[i]:
-            print(element, end=' ')
-        print('\n')
+    row_width = []
+    for width in title_list:
+        row_width.append(len(width))
+    for line in range(0, len(table)):
+        for index in range(0, len(table[line])):
+            if len(table[line][index]) > row_width[index]:
+                row_width[index] = len(table[line][index])
+
+    table_lenght = 0
+    for index in range(0, len(row_width)):
+        row_width[index] += 2
+        table_lenght += row_width[index]
+
+    print("/" + "-" * (table_lenght+len(title_list)-1) + "\\")
+
+    for i in range(0, len(title_list)):
+        temp = round((row_width[i] - len(title_list[i]))/2)
+        print("|" + " " * temp + title_list[i] + " " * (row_width[i] - (temp + len(title_list[i]))), end='')
+    print("|")
+
+    for line in range(0, len(table)):
+        for width in row_width:
+            print("|" + "-" * width, end='')
+        print("|")
+        for index in range(0, len(table[line])):
+            temp = round((row_width[index] - len(table[line][index]))/2)
+            print("|" + " " * temp + table[line][index] + " " * (row_width[index]-temp-len(table[line][index])), end='')
+        print("|")
+
+    print("\\" + "-" * (table_lenght+len(title_list)-1) + "/")
+
+    input("Please insert anything to continue:")
 
 
 def print_result(result, label):
