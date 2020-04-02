@@ -17,7 +17,8 @@ def run():
                "Get cheapest game",
                "Get average games sold by a manufacturer",
                "Get age of a game by its title",
-               "Find a game by a keyword"]
+               "Find a game by a keyword",
+               "Print the whole table"]
 
     welcome = """
                  _______.___________.  ______   .______       _______    ____    __    ____  ___      .______       _______     _______.
@@ -76,6 +77,11 @@ def run():
             keyword = terminal_view.get_inputs(["Keyword: "], "Provide a keyword to search the game by")
             result = store.get_game_by(keyword[0], table)
             terminal_view.print_result(result, label)
+
+        elif choice == "7":
+            table_to_print = store.check_table(table)
+            title_list = store.get_table()[0]
+            terminal_view.print_table(table_to_print, title_list)
 
         elif choice == "0":
             should_run = False
