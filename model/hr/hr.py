@@ -4,6 +4,11 @@
 import random
 from model import data_manager
 
+ID = 0
+NAME = 1
+EMAIL = 2
+BIRTH_DATE = 3
+SALARY = 4
 
 def generate_random(table):
     """
@@ -11,19 +16,26 @@ def generate_random(table):
          - at least 2 special characters (except: ';'), 2 number, 2 lower and 2 upper case letter
          - it must be unique in the table (first value in every row is the id)
 
-    Args:
+    Args: 
         table (list): Data table to work on. First columns containing the keys.
 
     Returns:
         string: Random and unique string
     """
 
+    # redo to meet requirements
+
     generated = ''
 
-    pass
+    printables_letters_lower = 'abcdefghijklmnopqrstuvwxyz'
+    printables_letters_upper = printables_letters_lower.upper()
+    printables_numbers = '0123456789'
+    printables_specials = '!"#$%&\'()*+,-./:?@[\]^_`{|}~'
 
-
-
+    printables = printables_letters_lower + printables_letters_upper + printables_numbers + printables_specials
+    generated = "".join(random.choices(printables, k = 8)) 
+    return generated
+    
 
 def create(table, record):
     """
@@ -36,9 +48,8 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
-    pass
-
-
+    table.append(record)
+    return table
 
 
 def read(table, id_):
@@ -52,10 +63,10 @@ def read(table, id_):
     Returns:
         list: record
     """
-    pass
-
-
-
+    for record in table:
+        if record[ID] == id_:
+            return record
+    
 
 def update(table, id_, record):
     """
@@ -69,11 +80,12 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-
-    pass
-
-
-
+    for row in table:
+        if row[ID] == id_:
+            for index in range(len(row)):
+                row[index] = record[index]
+    return table
+    
 
 def delete(table, id_):
     """
@@ -87,8 +99,10 @@ def delete(table, id_):
         list: Table without specified record.
     """
 
-    pass
-
+    for record_index in range(len(table)):
+        if table[record_index][ID] == id_:
+            del table[record_index]
+            return table
 
 # special functions:
 # ------------------
@@ -103,8 +117,22 @@ def get_oldest_person(table):
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
     """
+    oldest_persons = []
+    oldest_birth_date = [3000,0,0] # asume we'r dealing with already born 
+    for row in table:
+        splited_birth_date = row[BIRTH_DATE].split('-') # unify types to int
+        if splited_birth_date[0] <= oldest_birth_date[0]:
+            if splited_birth_date[0] == oldest_birth_date[0] and splited_birth_date[1] <= oldest_birth_date[1]:
+                if splited_birth_date[1] == oldest_birth_date[1] and splited_birth_date[2] < oldest_birth_date[2]:                   
+                    oldest_birth_date = splited_birth_date   
+                oldest_birth_date = splited_birth_date        
+            oldest_birth_date = splited_birth_date        
 
-    pass
+    for row in table:        
+        if row[BIRTH_DATE] == '-'.join(oldest_birth_date):
+            oldest_persons.append(row[NAME])
+
+    return oldest_persons
 
 
 def get_persons_closest_to_average_salary(table):
@@ -118,20 +146,127 @@ def get_persons_closest_to_average_salary(table):
         list: list of strings (name or names if there are two more with the same value)
     """
 
-    pass
+    sum = 0
+    for row in table:
+        sum += int(row[SALARY])
+    avg_sal = sum / len(table) # check for reminder isues
+
+    diff_list = []
+    for row in table:
+        diff = abs(int(row[SALARY]) - avg_sal)
+        diff_list.append(diff)
+    
+    smallest_diff = diff_list[0]
+    for i in range(len(diff_list)):
+        if diff_list[i] < smallest_diff:
+            smallest_diff = diff_list[i]
+            closest_salary = table[i][SALARY]
+    
+    persons_closest_to_average_salary = []
+    for row in table:
+        if row[SALARY] == closest_salary:
+            persons_closest_to_average_salary.append(row[NAME])
+
+    return persons_closest_to_average_salary
 
 
 def get_shortest_surname(table):
-    pass
+    """
+    Question: Who's got the shortest surname 
+
+    Args:
+        table: data table to work on
+
+    Returns:
+        list: list of strings with names
+
+    """
+
+    # get list of surnames
+    names_list = []
+    splited_name = []
+    for row in table:
+        splited_name = row[NAME].split(' ')
+        names_list.append(splited_name[1])
+    
+    # get shortest name's lenght
+    shortest_name_lenght = len(names_list[0])
+    for i in range(len(names_list)):
+        if len(names_list[i]) < shortest_name_lenght:
+            shortest_name_lenght = len(names_list[i])
+    
+    # create list of shortest surnames
+    shortest_surnames = []    
+    for i in range(len(names_list)):
+        if len(names_list[i]) == shortest_name_lenght:
+            shortest_surnames.append(names_list[i])
+    
+    return shortest_surnames
 
 
 def get_age_by(surname, table):
-    pass
+    """
+    What it does:
 
+    Args:
+
+    Returns:
+
+    """
+    for row in table:
+        splited_name = row[NAME].split(' ')
+        if splited_name[1] == surname:
+            age = 2020 - int(row[BIRTH_DATE][:4]) # string slicing
+
+    return age # fix to check full date --> but how to without datetime module?
+    
 
 def get_email_by(surname, table):
-    pass
+    """
+    What it does:
+
+    Args:
+
+    Returns:
+        email (string) : 
+
+    """
+    record_index = get_record_by_surname(surname, table)
+    email = table[record_index][EMAIL]
+
+    return email
 
 
 def get_first_name_by(surname, table):
-    pass
+    """
+    What it does:
+
+    Args:
+
+    Returns:
+
+    """
+    record_index = get_record_by_surname(surname, table)
+    splited_name = table[record_index][NAME].split(' ')
+    return splited_name[0]
+    
+
+def get_record_by_surname(surname, table):
+    """
+    What it does: Gets record index by given surname
+
+    Args: 
+        table (list) : data table to work on
+        surname (string): 
+
+    Returns: 
+        int: record index
+
+    """
+
+    for i in range(len(table)):
+        splited_name = table[i][NAME].split(' ')
+        if splited_name[1] == surname:
+            record_index = i
+
+    return record_index
