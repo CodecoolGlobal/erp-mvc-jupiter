@@ -2,6 +2,7 @@
 from model.store import store
 from view import terminal_view
 
+
 def run():
     """
     Starts this module and displays its menu.
@@ -18,21 +19,20 @@ def run():
                "Get age of a game by its title",
                "Find a game by a keyword"]
 
-
-    welcome =   """
+    welcome = """
                  _______.___________.  ______   .______       _______    ____    __    ____  ___      .______       _______     _______.
                 /       |           | /  __  \  |   _  \     |   ____|   \   \  /  \  /   / /   \     |   _  \     |   ____|   /       |
                |   (----`---|  |----`|  |  |  | |  |_)  |    |  |__       \   \/    \/   / /  ^  \    |  |_)  |    |  |__     |   (----`
                 \   \       |  |     |  |  |  | |      /     |   __|       \            / /  /_\  \   |      /     |   __|     \   \    
             .----)   |      |  |     |  `--'  | |  |\  \----.|  |____       \    /\    / /  _____  \  |  |\  \----.|  |____.----)   |   
             |_______/       |__|      \______/  | _| `._____||_______|       \__/  \__/ /__/     \__\ | _| `._____||_______|_______/    
-                                                                                                                                        
+                                                                                                                                     
     """
 
     table = store.get_table()
 
-    choice = None
-    while choice != "0":
+    should_run = True
+    while should_run:
         choice = terminal_view.get_choice_store(welcome, options)
 
         if choice == "1":
@@ -64,6 +64,9 @@ def run():
         elif choice == "6":
             keyword = terminal_view.get_inputs(["Keyword: "], "Provide a keyword to search the game by")
             print(store.get_game_by(keyword[0], table))
+
+        elif choice == "0":
+            should_run = False
 
         else:
             terminal_view.print_error_message("There is no such choice.")
