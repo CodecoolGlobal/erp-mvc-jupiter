@@ -2,7 +2,8 @@
 from view import terminal_view
 from model.crm import crm
 
-TABLE = crm.data_manager.get_table_from_file('model/crm/customers.csv')
+# TABLE = crm.data_manager.get_table_from_file('model/crm/customers.csv')
+TABLE = crm.get_table('model/crm/customers.csv')
 
 def run():
     """
@@ -50,6 +51,7 @@ def run():
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
             label = "Email of this customer is:"
             result = crm.get_email_by(surname, TABLE)
+            print(result)
             terminal_view.print_result(result, label)
 
         elif choice == "6":

@@ -6,13 +6,27 @@ import datetime
 
 from model import data_manager
 
-# TABLE = data_manager.get_table_from_file('customers.csv')
-
 ID = 0
 NAME = 1
 EMAIL = 2
 BIRTHDATE = 3
 SUBSCRIBED = 4
+
+def get_table(table_adress):
+    """ Loads table from file using data mangager
+    
+    Args: 
+    string; table path
+    
+    Return: 
+    list (of lists): crm module database"""
+
+    table = data_manager.get_table_from_file(table_adress)
+    if table[0][0] == 'id':
+        table = table[1:]
+
+    return table
+
 
 def generate_random(table):
     """
@@ -251,9 +265,8 @@ def get_email_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if str(name[current_surname]) == str(surname[0]):
             user_email = record[EMAIL]
-
     return user_email
 
 
@@ -273,7 +286,7 @@ def get_first_name_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if name[current_surname] == surname[0]:
             user_firstname = name[current_firstname]
 
     return user_firstname
