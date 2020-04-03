@@ -1,5 +1,24 @@
 """ Terminal view module """
 
+# colors
+RESET = "\033[0;0m"
+BOLD = "\033[;1m"
+REVERSE = "\033[;7m"
+RED = '\033[31m'
+GREEN = '\033[32m'
+ORANGE = '\033[33m'
+BLUE = '\033[34m'
+PURPLE = '\033[35m'
+CYAN = '\033[36m'
+LIGHTGRAY = '\033[37m'
+DARKGRAY = '\033[90m'
+LIGHTRED = '\033[91m'
+LIGHTGREEN = '\033[92m'
+YELLOW = '\033[93m'
+LIGHTBLUE = '\033[94m'
+PINK = '\033[95m'
+LIGHTCYAN = '\033[96m'
+
 
 def print_table(table, title_list):
     """
@@ -34,25 +53,25 @@ def print_table(table, title_list):
         row_width[index] += 2
         table_lenght += row_width[index]
 
-    print("/" + "-" * (table_lenght+len(title_list)-1) + "\\")
+    print(GREEN + "/" + "-" * (table_lenght+len(title_list)-1) + "\\" + RESET)
 
     for i in range(0, len(title_list)):
         temp = round((row_width[i] - len(title_list[i]))/2)
-        print("|" + " " * temp + title_list[i] + " " * (row_width[i] - (temp + len(title_list[i]))), end='')
-    print("|")
+        print(GREEN + "|" + " " * temp + BOLD + title_list[i] + GREEN + " " * (row_width[i] - (temp + len(title_list[i]))), end='')
+    print("|" + RESET)
 
     for line in range(0, len(table)):
         for width in row_width:
-            print("|" + "-" * width, end='')
-        print("|")
+            print(GREEN + "|" + "-" * width, end='')
+        print("|" + RESET)
         for index in range(0, len(table[line])):
             temp = round((row_width[index] - len(table[line][index]))/2)
-            print("|" + " " * temp + table[line][index] + " " * (row_width[index]-temp-len(table[line][index])), end='')
-        print("|")
+            print(GREEN + "|" + " " * temp + BLUE + table[line][index] + GREEN + " " * (row_width[index]-temp-len(table[line][index])), end='')
+        print("|" + RESET)
 
-    print("\\" + "-" * (table_lenght+len(title_list)-1) + "/")
+    print(GREEN + "\\" + "-" * (table_lenght+len(title_list)-1) + "/" + RESET)
 
-    input("Please insert anything to continue:")
+    input(REVERSE + "Press enter to continue" + RESET)
 
 
 def print_result(result, label):
@@ -68,13 +87,30 @@ def print_result(result, label):
     """
 
     if isinstance(result, list):
-        print(label)
+        print(LIGHTGREEN + label + RESET)
         for element in result:
-            print(element, end=' | ')
+            print(YELLOW + str(element) + RESET)
     elif isinstance(result, dict):
+        first_width = 0
+        secend_width = 0
+        for key in result:
+            key = str(key)
+            result[key] = str(result[key])
+            if first_width < len(key):
+                first_width = len(key)
+            if secend_width < len(result[key]):
+                secend_width = len(result[key])
+        first_width += 2
+        secend_width += 1
         print(label)
         for key in result:
-            print(key, ":", result[key])
+            key = str(key)
+            result[key] = str(result[key])
+            temp = round((first_width-len(key))/2)
+            print('|' + '-' * (first_width + secend_width + 2) + '|')
+            print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)) + '| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
+        print('|' + '-' * (first_width + secend_width + 2) + '|')
+        input(REVERSE + "Press enter to continue" + RESET)
     else:
         print(label, result)
 
@@ -100,11 +136,11 @@ def print_menu(title, list_options, exit_message):
         None: This function doesn't return anything it only prints to console.
     """
     order_number = 1
-    print(title)
+    print(RED + title + RESET)
     for option in list_options:
-        print("     (" + str(order_number) + ") ", option)
+        print(GREEN + "     (" + str(order_number) + ") ", option + RESET)
         order_number += 1
-    print("     (0) ", exit_message)
+    print(GREEN + "     (0) ", exit_message + RESET)
 
 
 def get_inputs(list_labels, title):
@@ -127,7 +163,7 @@ def get_inputs(list_labels, title):
             [<user_input_1>, <user_input_2>, <user_input_3>]
     """
     inputs = []
-    print(title)
+    print(CYAN + title + RESET)
     for label in list_labels:
         user_input = input(label)
         inputs.append(user_input)
@@ -136,13 +172,13 @@ def get_inputs(list_labels, title):
 
 def get_choice(options):
     print_menu("Main menu", options, "Exit program")
-    inputs = get_inputs(["Please enter a number: "], "")
+    inputs = get_inputs([CYAN + "Please enter a number: " + RESET], "")
     return inputs[0]
 
 
 def get_choice_store(welcome, options):
     print_menu(welcome, options, "Go back to the main menu")
-    inputs = get_inputs(["Please choose your function: "], "")
+    inputs = get_inputs([BLUE + "Please choose your function: " + RESET], "")
     return inputs[0]
 
 
@@ -156,4 +192,4 @@ def print_error_message(message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-    print("Error: " + message)
+    print(RED + "Error: " + message + RESET)
