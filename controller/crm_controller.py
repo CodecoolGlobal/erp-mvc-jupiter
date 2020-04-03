@@ -42,16 +42,19 @@ def run():
 
         elif choice == "4":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
+            label = "Age of this customer is:"
             result = crm.get_age_by(surname, TABLE)
             terminal_view.print_result(result, label)
 
         elif choice == "5":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
+            label = "Email of this customer is:"
             result = crm.get_email_by(surname, TABLE)
             terminal_view.print_result(result, label)
 
         elif choice == "6":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
+            label = "Firstname of this customer is:"
             result = crm.get_first_name_by(surname, TABLE)
             terminal_view.print_result(result, label)
 
