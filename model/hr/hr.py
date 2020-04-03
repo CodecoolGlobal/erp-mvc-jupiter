@@ -151,7 +151,7 @@ def get_persons_closest_to_average_salary(table):
     sum = 0
     for row in table:
         sum += int(row[SALARY])
-    avg_sal = sum / len(table)  # check for reminder isues
+    avg_sal = sum / len(table) 
 
     diff_list = []
     for row in table:
