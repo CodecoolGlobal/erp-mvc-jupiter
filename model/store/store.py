@@ -160,6 +160,14 @@ def delete(table, id_):
     table[:] = updated_list
     return table
    
+def write_table_to_file(file_name, table):
+    first_row = get_table()[0]
+    check_table(table)
+    table_to_file = []
+    table_to_file.append(first_row)
+    for game in table:
+        table_to_file.append(game)
+    data_manager.write_table_to_file(file_name, table_to_file)
 
 # special functions:
 # ------------------

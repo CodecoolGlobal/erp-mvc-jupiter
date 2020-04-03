@@ -18,7 +18,8 @@ def run():
                "Get average games sold by a manufacturer",
                "Get age of a game by its title",
                "Find a game by a keyword",
-               "Print the whole table"]
+               "Print the whole table",
+               "Write the current table to file"]
 
     welcome = """
                  _______.___________.  ______   .______       _______    ____    __    ____  ___      .______       _______     _______.
@@ -83,6 +84,10 @@ def run():
             table_to_print = store.check_table(table)
             title_list = store.get_table()[0]
             terminal_view.print_table(table_to_print, title_list)
+        
+        elif choice == "8":
+            file_to_write = terminal_view.get_inputs(["File name: "], "Provide a name of file to write the table to")
+            store.write_table_to_file(file_to_write[0], table)
 
         elif choice == "0":
             terminal_view.print_result("", "You are going back to the main menu")

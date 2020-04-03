@@ -31,3 +31,11 @@ def write_table_to_file(file_name, table):
     Returns:
          None
     """
+
+    with open(file_name, "w") as export_file:
+        export_file.write
+
+    with open(file_name, "a") as export_file:
+        for game in table:
+            row = ", ".join(game)
+            export_file.write(row + "\n")
