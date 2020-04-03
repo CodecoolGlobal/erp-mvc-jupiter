@@ -32,10 +32,11 @@ def run():
 
     table = store.get_table()
 
-    should_run = True
-    while should_run:
-        choice = terminal_view.get_choice_store(welcome, options)
+    choice = None
 
+    while choice != "0":
+        choice = terminal_view.get_choice_store(welcome, options)
+        
         if choice == "1":
             label = "The list of manufacturers: "
             result = store.get_counts_by_manufacturers(table)
@@ -84,7 +85,7 @@ def run():
             terminal_view.print_table(table_to_print, title_list)
 
         elif choice == "0":
-            should_run = False
+            terminal_view.print_result("", "You are going back to the main menu")
 
         else:
             terminal_view.print_error_message("There is no such choice.")

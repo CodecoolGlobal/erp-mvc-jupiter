@@ -20,7 +20,6 @@ def run():
         elif choice == "3":
             crm_controller.run()
         elif choice == "0":
-            terminal_view.print_result("", "Godbye")
-            quit()
+            terminal_view.print_result("", "Goodbye")
         else:
             terminal_view.print_error_message("There is no such choice.")
