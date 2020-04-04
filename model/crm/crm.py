@@ -51,6 +51,7 @@ def read_surname(table):
     return surnames
 
 
+# NOT WORKING !!
 def generate_random(table):
     """
     Generates random and unique string. Used for id/key generation:

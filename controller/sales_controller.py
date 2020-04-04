@@ -1,6 +1,6 @@
 from model.sales import sales
 from view import terminal_view
-
+from model import data_manager
 
 def run():
 
@@ -33,16 +33,25 @@ def run():
              ####### #######    ####### ####### 
                                                 
     """
-    table = sales.get_table()
-
 
     choice = None
 
     while choice != "0":
         choice = terminal_view.get_choice_store(welcome, options)
+        table = sales.get_table()
+        print(table)
         
-        if choice == "1":
-           pass
+        if choice == "1":     
+            label = "Provide new record /n"
+            id = sales.generate_random(table)
+
+            store_id = terminal_view.get_inputs(["Store ID: "], "Provide product ID")
+            hr_id = terminal_view.get_inputs(["Employee ID: "], "Provide employee ID")
+            crm_id = terminal_view.get_inputs(["Customer ID: "], "Provide customer ID")
+            qty = terminal_view.get_inputs(["Quantity: "], "Provide item quantity")
+            table_updated = sales.add_transaction(table, id, store_id[0], hr_id[0], crm_id[0], qty[0])
+            data_manager.write_table_to_file("model/sales/sales.csv", table_updated)
+
 
         elif choice == "2":
             label = "The transactions made by given employee: "
