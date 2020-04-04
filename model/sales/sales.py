@@ -148,9 +148,9 @@ def rank_by_manufacturer(table):
             manufacturer = game[manufacturer_index]
             if product_id == game_id:
                 if manufacturer in manufacturers_counts:
-                    manufacturers_counts[manufacturer] += amount_sold
+                    manufacturers_counts[manufacturer] += int(amount_sold)
                 else:
-                    manufacturers_counts[manufacturer] = amount_sold
+                    manufacturers_counts[manufacturer] = int(amount_sold)
 
     return manufacturers_counts
 
