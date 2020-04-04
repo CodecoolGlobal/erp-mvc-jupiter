@@ -68,7 +68,7 @@ def run():
             pass
 
         elif choice == "6":
-            label = "The requested ranking: "
+            label = "Manufacurer | sold copies"
             result = sales.rank_by_manufacturer(table)
             terminal_view.print_result(result, label)
 
