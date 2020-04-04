@@ -9,6 +9,7 @@ def get_table():
     table = data_manager.get_table_from_file(file)
     return table
 
+
 def check_table(table):
     """
     Checks if each row contains more than 1 manufacturer and merges them in one object
@@ -80,8 +81,7 @@ def create(table, record):
     Returns:
         list: Table with a new record
     """
-    check_table(table)
-    
+
     table.append(record)
     return table
 
@@ -97,7 +97,6 @@ def read(table, id_):
     Returns:
         list: record
     """
-    check_table(table)
 
     id_index = 0
     for game in table:
@@ -118,8 +117,6 @@ def update(table, id_, record):
     Returns:
         list: table with updated record
     """
-
-    check_table(table)
 
     updated_list = []
     id_index = 0
@@ -148,7 +145,6 @@ def delete(table, id_):
     Returns:
         list: Table without specified record.
     """
-    check_table(table)
 
     updated_list = []
     id_index = 0
@@ -160,9 +156,9 @@ def delete(table, id_):
     table[:] = updated_list
     return table
    
+   
 def write_table_to_file(file_name, table):
     first_row = get_table()[0]
-    check_table(table)
     table_to_file = []
     table_to_file.append(first_row)
     for game in table:
@@ -182,8 +178,6 @@ def get_counts_by_manufacturers(table):
     Returns:
          dict: A dictionary with this structure: { [manufacturer] : [count] }
     """
-
-    check_table(table)
 
     game_index = 0
     manufacturer_index = 2
@@ -216,8 +210,6 @@ def get_average_by_manufacturer(table, manufacturer):
          number
     """
 
-    check_table(table)
-    
     manufacturer_index = 2
     price_index = 3
     manufacturers_counter = 0
@@ -244,7 +236,6 @@ def get_oldest_game(table):
     Returns:
          list: [Title, Date]
     """
-    check_table(table)
     
     date_index = 4
     first_date = table[1][date_index]
@@ -277,8 +268,6 @@ def get_cheapest_game(table):
          list: [Title, Price]
     """
 
-    check_table(table)
-
     price_index = 3
     first_cheapest = table[1][price_index]
     cheapest_price = int(first_cheapest)
@@ -307,8 +296,6 @@ def get_age_by(title, table):
     Returns:
          list: [Title, Age in years]
     """
-
-    check_table(table)
     
     current_year = 2020
     current_month = 4
@@ -347,8 +334,6 @@ def get_game_by(keyword, table):
          list: line with all properties of the game found
     """
 
-    check_table(table)
-    
     game_index = 0
     title_index = 1
     for game in table:
