@@ -10,6 +10,11 @@ from model.hr import hr
 # global variables go here: 
 
 CUSTOMER_ID = 2
+PRODUCT_ID = 3
+NUMBER_OF_ITEMS = 4
+
+STORE_PRODUCT_ID = 0
+STORE_MANUFACTURER = 2
 
 # sales.csv: 'id, employee_id, customer_id, product_id, number_of_items'
 
@@ -81,7 +86,7 @@ def filter_by_employee(table, employee_id):
 
 def filter_by_customer(table, customer):
     """
-    As a user, I want to filter my transactions so that I can know deals with a specific customer.
+    Filter transactions in search of deals with a specific customer.
     
     Args: 
         table (list): 
@@ -98,8 +103,29 @@ def filter_by_customer(table, customer):
     return transactions
 
 
-def filter_by_manufacturer():
-    pass
+def filter_by_manufacturer(table, manufacturer):
+    """
+    Filter transactions to get sales of games per a specific manufacturer.
+    
+    Args:
+        table (list):
+        manufacturer (string): manufacturer's name
+
+    Returns:
+        sales (): sales of games per a specific manufacturer
+    """
+    store_table = store.get_table()
+    store_id_list = []
+    for record in store_table:
+        if record[STORE_MANUFACTURER] == manufacturer:
+            store_id_list.append(record[STORE_PRODUCT_ID])
+    
+    sales = 0
+    for record in table:
+        if record[PRODUCT_ID] in store_id_list:
+            sales += int(record[NUMBER_OF_ITEMS])
+
+    return sales
 
 
 def most_earned(table):
@@ -178,5 +204,49 @@ def rank_by_manufacturer(table):
     return manufacturers_counts
 
 
-def gererate_rapoprt():
-    pass
+def get_sold_copies(table, store_id):
+    """ Gets total number of sold copies by id, 
+    
+    Args:
+    list (of lists) - sales database
+    string - item id in store database """
+    
+    store_id_position = 1
+    quantity_position = 4
+    sold_copies = 0
+
+    for record in table: 
+        if str(record[store_id_position]) == str(store_id):
+            sold_copies = sold_copies + int(record[quantity_position])
+        
+    return sold_copies
+
+def generate_raport(table):
+    """ Generate a report of sold items and earned money per game. 
+    
+    Args: 
+    list(of lists) - list from store containing items
+    list(of lists) - list from sales containing, among others, number of sold copies
+    
+    Return: 
+    list(of lists) - containing items and money earned per item """
+
+    item_table = store.get_table()
+    item_table = store.check_table(item_table)
+    raport = []
+
+    id_position = 0
+    title_position = 1
+    price_position = 3
+    earnings = 0 
+
+    for item in item_table: 
+        price = item[price_position]
+        sold_copies = get_sold_copies(table, item[id_position])
+        if price and sold_copies:
+            earnings = int(price) * int(sold_copies)
+            print(f"price = {price}, sold copies = {sold_copies}, earnings = {earnings}")
+            raport_row = [item[title_position], str("earnings")]
+            raport.append(raport_row)
+    
+    return raport
