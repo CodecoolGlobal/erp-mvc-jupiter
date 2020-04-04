@@ -102,6 +102,9 @@ def filter_by_manufacturer():
 
 
 def most_earned(table):
+
+
+def rank_by_manufacturer():
     manufacturers_counts = {}
     product_id_index = 3
     amount_sold_index = 4
@@ -124,10 +127,6 @@ def most_earned(table):
                     manufacturers_counts[manufacturer] = amount_sold
 
     return manufacturers_counts
-
-
-def rank_by_manufacturer():
-    pass
 
 
 def gererate_rapoprt():
