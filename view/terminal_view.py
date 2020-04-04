@@ -123,7 +123,7 @@ def print_result(result, label):
         print('|' + '-' * (first_width + secend_width + 2) + '|')
     
     else:
-        print(LIGHTGREEN + label + '\n'*2 + YELLOW + result + RESET + '\n'*2)
+        print(LIGHTGREEN + label + '\n'*2 + YELLOW + str(result) + RESET + '\n'*2)
     input(REVERSE + "Press enter to continue" + RESET)
     clear()
 
