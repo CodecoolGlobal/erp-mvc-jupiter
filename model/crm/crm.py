@@ -251,7 +251,7 @@ def get_age_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname[0]:
+        if name[current_surname] == surname:
             user_birthdate = record[BIRTHDATE]
 
     # if user_birthdate:
