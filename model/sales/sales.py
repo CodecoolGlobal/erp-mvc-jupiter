@@ -6,7 +6,11 @@
 
 # global variables go here: 
 
-
+def get_table():
+    file = "model/store/games.csv"
+    table = data_manager.get_table_from_file(file)
+    return table
+    
 def add_transaction():
     pass
 
