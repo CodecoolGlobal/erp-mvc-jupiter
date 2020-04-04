@@ -118,7 +118,10 @@ def most_earned(table):
             game_id = game[id_index]
             manufacturer = game[manufacturer_index]
             if product_id == game_id:
-                manufacturers_counts[manufacturer] = amount_sold
+                if manufacturer in manufacturers_counts:
+                    manufacturers_counts[manufacturer] += amount sold
+                else:
+                    manufacturers_counts[manufacturer] = amount_sold
 
     return manufacturers_counts
 
