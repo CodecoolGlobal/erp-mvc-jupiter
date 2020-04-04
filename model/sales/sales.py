@@ -9,6 +9,11 @@ from model.store import store
 # global variables go here: 
 
 CUSTOMER_ID = 2
+PRODUCT_ID = 3
+NUMBER_OF_ITEMS = 4
+
+STORE_PRODUCT_ID = 0
+STORE_MANUFACTURER = 2
 
 # sales.csv: 'id, employee_id, customer_id, product_id, number_of_items'
 
@@ -97,8 +102,29 @@ def filter_by_customer(table, customer):
     return transactions
 
 
-def filter_by_manufacturer():
-    pass
+def filter_by_manufacturer(table, manufacturer):
+    """
+    As a user, I want to filter my transactions so that I can know sales of games per a specific manufacturer.
+    
+    Args:
+        table (list):
+        manufacturer (string): 
+
+    Returns:
+        sales (): sales of games per a specific manufacturer
+    """
+    store_table = store.get_table()
+    store_id_list = []
+    for record in store_table:
+        if record[STORE_MANUFACTURER] == manufacturer:
+                store_id_list.append(record[STORE_PRODUCT_ID])
+    
+    sales = 0
+    for record in table:
+        if record[PRODUCT_ID] in store_id_list:
+            sales += int(record[NUMBER_OF_ITEMS])
+
+    return sales
 
 
 def most_earned(table):
