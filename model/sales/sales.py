@@ -221,6 +221,7 @@ def get_sold_copies(table, store_id):
         
     return sold_copies
 
+
 def generate_raport(table):
     """ Generate a report of sold items and earned money per game. 
     
@@ -245,8 +246,7 @@ def generate_raport(table):
         sold_copies = get_sold_copies(table, item[id_position])
         if price and sold_copies:
             earnings = int(price) * int(sold_copies)
-            print(f"price = {price}, sold copies = {sold_copies}, earnings = {earnings}")
-            raport_row = [item[title_position], str("earnings")]
+            raport_row = [item[title_position], str(earnings)]
             raport.append(raport_row)
     
     return raport
