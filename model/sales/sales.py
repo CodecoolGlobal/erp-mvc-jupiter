@@ -15,8 +15,14 @@ def add_transaction():
     pass
 
 
-def filter_by_employee():
-    pass
+def filter_by_employee(table, employee_id):
+    operations = []
+    employee_id_index = 1
+    for record in table:
+        id = record[employee_id_index]
+        if id == employee_id:
+            operations.append(record)
+    return operations
 
 
 def filter_by_customer():
