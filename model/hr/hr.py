@@ -10,14 +10,17 @@ EMAIL = 2
 BIRTH_DATE = 3
 SALARY = 4
 
+
 def get_table(table_adress):
-    """ Loads table from file using data mangager
+    """ 
+    Loads table from file using data mangager
     
-    Args: 
-    string; table path
-    
-    Return: 
-    list (of lists): crm module database"""
+    Args:
+        table_adress (string): table path
+
+    Return:
+        list: hr module database
+    """
 
     table = data_manager.get_table_from_file(table_adress)
     if table[0][0] == 'id':
@@ -27,14 +30,15 @@ def get_table(table_adress):
 
 
 def read_surname(table):
-    """ Read column of surnames into variable
+    """ 
+    Read column of surnames into variable
     
-    Args: 
-    list (of lists) - database
+    Args:
+        table (list) - database
 
-    Return: 
-    list(of strings) - column of surnames 
-     """
+    Return:
+        list - column of surnames 
+    """
 
     surnames = []
     names = []
@@ -43,7 +47,7 @@ def read_surname(table):
     for row in table:
         names.append(row[NAME].split(" "))
     
-    for row in names: 
+    for row in names:
         surnames.append(row[surname_id])
     
     return surnames
@@ -247,31 +251,34 @@ def get_shortest_surname(table):
 
 def get_age_by(surname, table):
     """
-    What it does:
+    Provides age of the employee specified by surname
 
     Args:
-
+        surname (string): employee's surname
+        table (list): data table to work on
     Returns:
-
+        integer: age
     """
+    
     for row in table:
         splited_name = row[NAME].split(' ')
         if splited_name[1] == surname:
-            age = 2019 - int(row[BIRTH_DATE][:4])  # string slicing
+            age = 2019 - int(row[BIRTH_DATE][:4])
 
-    return age 
+    return age
     
 
 def get_email_by(surname, table):
     """
-    What it does:
+    Provides email of the employee specified by surname
 
     Args:
-
+        surname (string): employee's surname
+        table (list): data table to work on
     Returns:
-        email (string) : 
-
+        string: employee's email 
     """
+
     record_index = get_record_by_surname(surname, table)
     email = table[record_index][EMAIL]
     return email
@@ -279,11 +286,13 @@ def get_email_by(surname, table):
 
 def get_first_name_by(surname, table):
     """
-    What it does:
+    Provides first name of the employee specified by surname
 
     Args:
-
+        surname (string): employee's surname
+        table (list): data table to work on
     Returns:
+        string: employee's first name
 
     """
     record_index = get_record_by_surname(surname, table)
@@ -295,13 +304,11 @@ def get_record_by_surname(surname, table):
     """
     What it does: Gets record index by given surname
 
-    Args: 
+    Args:
         table (list) : data table to work on
-        surname (string): 
-
-    Returns: 
-        int: record index
-
+        surname (string):
+    Returns:
+        integer: record index
     """
 
     for i in range(len(table)):
