@@ -15,7 +15,7 @@ def run():
     options = ["Get counts of all manufacturers",
                "Get the oldest game",
                "Get cheapest game",
-               "Get average games sold by a manufacturer",
+               "Get average games' price by a manufacturer",
                "Get age of a game by its title",
                "Find a game by a keyword",
                "Add a new record to table",
@@ -35,6 +35,7 @@ def run():
     """
 
     table = store.get_table()
+    store.check_table(table)
 
     choice = None
 
@@ -62,7 +63,7 @@ def run():
             while manufacturer[0] not in all_manufacturers:
                 manufacturer = terminal_view.get_inputs(["Manufacturer: "], "The manufacturer provided doesn't exist in the file, provide a valid one")
             result = store.get_average_by_manufacturer(table, manufacturer[0])
-            label = "The average sold copies by the " + manufacturer[0] + " is:"
+            label = "The average games' price of " + manufacturer[0] + " is: "
             terminal_view.print_result(result, label)
 
         elif choice == "5":
@@ -102,9 +103,8 @@ def run():
             store.delete(table, id_[0])
 
         elif choice == "10":
-            table_to_print = store.check_table(table)
             title_list = store.get_table()[0]
-            terminal_view.print_table(table_to_print, title_list)
+            terminal_view.print_table(table, title_list)
         
         elif choice == "11":
             file_to_write = terminal_view.get_inputs(["File name: "], "Provide a name of file to write the table to")

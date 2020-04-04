@@ -12,7 +12,7 @@ def run():
                "Get the most earning employee",
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
-               "Additional function"]
+               "Get the worst earning employee"]
 
     welcome = """
               #####     #        #####     #
@@ -85,7 +85,9 @@ def run():
             data_manager.write_table_to_file("model/sales/raport.csv", raport)
 
         elif choice == "8":
-            pass
+            label = "Min earning employee"
+            result = sales.min_earned(table)
+            terminal_view.print_result(result, label)
 
         elif choice == "0":
             terminal_view.print_result("", "You are going back to the main menu")
