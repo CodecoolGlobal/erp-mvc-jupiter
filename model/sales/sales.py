@@ -130,17 +130,16 @@ def filter_by_manufacturer(table, manufacturer):
     return sales
 
 
-def most_earned(table):
+def employees_earning(table):
     """
-    As a user, I want to know which employee earned the most money so that I can pay her a bonus.
+    Function to create dict witch employees_earning
     Args:
-        table (list): Data table to work on. First columns containing the keys.
-        employee_id (str): employee_id
+        table (list): Data table to work on.
     Return:
-        String : most earned employee and money earned by him
-
+        dict : employee as a key and amount of earning money
 
     """
+
     product_index = 1
     employee_id_index = 2
     amount_sold_index = 4
@@ -155,8 +154,6 @@ def most_earned(table):
     store.check_table(store_table)
     hr_table = hr.get_table('model/hr/persons.csv')
     money_earned = {}
-    most_earned_employee = []
-
     for record in table:
         product_id = record[product_index]
         employee_id = record[employee_id_index]
@@ -173,12 +170,45 @@ def most_earned(table):
                             money_earned[person_name] += int(amount_sold * game_price)
                         else:
                             money_earned[person_name] = int(amount_sold * game_price)
+    return money_earned
+
+
+def most_earned(table):
+    """
+    As a user, I want to know which employee earned the most money so that I can pay her a bonus.
+    Args:
+        table (list): Data table to work on.
+    Return:
+        String : most earned employee and money earned by him
+
+
+    """
+    money_earned = employees_earning(table)
     temp = 0
     for employee in money_earned:
         if money_earned[employee] > temp:
             temp = money_earned[employee]
-            most_earned_employee = str(employee) + ": " + str(money_earned[employee])
+            most_earned_employee = str(employee) + ":" + str(money_earned[employee])
     return most_earned_employee
+
+
+def min_earned(table):
+    """
+    As a user, I want to know which employee earned the most money so that I can pay her a bonus.
+    Args:
+        table (list): Data table to work on.
+    Return:
+        str : min earned employee and money earned by him
+    """
+    money_earned = employees_earning(table)
+    temp = 0
+    for employee in money_earned:
+        if temp == 0:
+            temp = money_earned[employee]
+        if money_earned[employee] <= temp:
+            temp = money_earned[employee]
+            min_earned_employee = str(employee) + ": " + str(money_earned[employee])
+    return min_earned_employee
 
 
 def rank_by_manufacturer(table):
