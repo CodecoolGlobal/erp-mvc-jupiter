@@ -95,6 +95,7 @@ def print_result(result, label):
     if isinstance(result, list):
         print(LIGHTGREEN + label + '\n' + RESET)
         for element in result:
+            element = str(element)
             for sign in element:
                 if sign == ";":
                     sign = ' :  '
