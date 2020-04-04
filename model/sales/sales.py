@@ -4,6 +4,7 @@
 import random
 
 from model import data_manager
+from model.store import store
 
 # global variables go here: 
 
@@ -82,8 +83,26 @@ def filter_by_manufacturer():
     pass
 
 
-def most_earned():
-    pass
+def most_earned(table):
+    manufacturers_counts = {}
+    product_id_index = 3
+    amount_sold_index = 4
+    id_index = 0
+    manufacturer_index = 2
+
+    store_table = store.get_table()
+    store.check_table(store_table)
+
+    for record in table:
+        product_id = record[product_id_index]
+        amount_sold = record[amount_sold_index]
+        for game in store_table:
+            game_id = game[id_index]
+            manufacturer = game[manufacturer_index]
+            if product_id == game_id:
+                manufacturers_counts[manufacturer] = amount_sold
+
+    return manufacturers_counts
 
 
 def rank_by_manufacturer():
