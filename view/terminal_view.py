@@ -1,4 +1,5 @@
 """ Terminal view module """
+from os import system
 
 # colors
 RESET = "\033[0;0m"
@@ -18,6 +19,10 @@ YELLOW = '\033[93m'
 LIGHTBLUE = '\033[94m'
 PINK = '\033[95m'
 LIGHTCYAN = '\033[96m'
+
+
+def clear():
+    _ = system('clear')
 
 
 def print_table(table, title_list):
@@ -72,6 +77,7 @@ def print_table(table, title_list):
     print(GREEN + "\\" + "-" * (table_lenght+len(title_list)-1) + "/" + RESET)
 
     input(REVERSE + "Press enter to continue" + RESET)
+    clear()
 
 
 def print_result(result, label):
@@ -110,9 +116,11 @@ def print_result(result, label):
             print('|' + '-' * (first_width + secend_width + 2) + '|')
             print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)) + '| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
         print('|' + '-' * (first_width + secend_width + 2) + '|')
-        input(REVERSE + "Press enter to continue" + RESET)
+        
     else:
-        print(label, result)
+        print(LIGHTGREEN + label +'\n'*2 + YELLOW + result + RESET + '\n'*2)
+    input(REVERSE + "Press enter to continue" + RESET)
+    clear()
 
 
 def print_menu(title, list_options, exit_message):

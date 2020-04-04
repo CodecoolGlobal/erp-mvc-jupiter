@@ -25,6 +25,28 @@ def get_table(table_adress):
 
     return table
 
+def read_surname(table):
+    """ Read column of surnames into variable
+    
+    Args: 
+    list (of lists) - database
+
+    Return: 
+    list(of strings) - column of surnames 
+     """
+
+    surnames = []
+    names = []
+    surname_id = 1
+
+    for row in table:
+        names.append(row[NAME].split(" "))
+    
+    for row in names: 
+        surnames.append(row[surname_id])
+    
+    return surnames
+
 
 def generate_random(table):
     """

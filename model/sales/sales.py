@@ -3,8 +3,14 @@
 # modules import go here: 
 import random
 
+from model import data_manager
+
 # global variables go here: 
 
+def get_table():
+    file = "model/sales/sales.csv"
+    table = data_manager.get_table_from_file(file)
+    return table
 
 def generate_random(table):
     """
@@ -58,8 +64,14 @@ def add_transaction(table, id, store_id, hr_id, crm_id, quantity):
     return table
 
 
-def filter_by_employee():
-    pass
+def filter_by_employee(table, employee_id):
+    operations = []
+    employee_id_index = 1
+    for record in table:
+        id = record[employee_id_index]
+        if id == employee_id:
+            operations.append(record)
+    return operations
 
 
 def filter_by_customer():

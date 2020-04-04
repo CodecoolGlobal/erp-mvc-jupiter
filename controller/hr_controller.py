@@ -44,19 +44,24 @@ def run():
         elif choice == "4":
             surname = terminal_view.get_inputs(["Surname: "], "Provide workers surname")
             label = "Age of this worker is:"
-            result = hr.get_age_by(surname, TABLE)
+            surnames = hr.read_surname(TABLE)
+
+            while surname[0] not in surnames:
+                surname = terminal_view.get_inputs(["Surname: "], "Provide correct customer surname")
+ 
+            result = hr.get_age_by(surname[0], TABLE)
             terminal_view.print_result(result, label)
 
         elif choice == "5":
             surname = terminal_view.get_inputs(["Surname: "], "Provide workers surname")
             label = "Email of this worker is:"
-            result = hr.get_email_by(surname, TABLE)
+            result = hr.get_email_by(surname[0], TABLE)
             terminal_view.print_result(result, label)
 
         elif choice == "6":
             surname = terminal_view.get_inputs(["Surname: "], "Provide workers surname")
             label = "Firstname of this worker is:"
-            result = hr.get_first_name_by(surname, TABLE)
+            result = hr.get_first_name_by(surname[0], TABLE)
             terminal_view.print_result(result, label)
 
         elif choice == "7":
