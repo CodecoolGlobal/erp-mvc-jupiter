@@ -6,13 +6,50 @@ import datetime
 
 from model import data_manager
 
-# TABLE = data_manager.get_table_from_file('customers.csv')
-
 ID = 0
 NAME = 1
 EMAIL = 2
 BIRTHDATE = 3
 SUBSCRIBED = 4
+
+def get_table(table_adress):
+    """ Loads table from file using data mangager
+    
+    Args: 
+    string; table path
+    
+    Return: 
+    list (of lists): crm module database"""
+
+    table = data_manager.get_table_from_file(table_adress)
+    if table[0][0] == 'id':
+        table = table[1:]
+
+    return table
+
+
+def read_surname(table):
+    """ Read column of surnames into variable
+    
+    Args: 
+    list (of lists) - database
+
+    Return: 
+    list(of strings) - column of surnames 
+     """
+
+    surnames = []
+    names = []
+    surname_id = 1
+
+    for row in table:
+        names.append(row[NAME].split(" "))
+    
+    for row in names: 
+        surnames.append(row[surname_id])
+    
+    return surnames
+
 
 def generate_random(table):
     """
@@ -210,13 +247,14 @@ def get_age_by(surname, table):
 
     current_firstname = 0
     current_surname = 1
-    user_birthdate = ""
+    user_birthdate = "0001-01-01"
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if name[current_surname] == surname[0]:
             user_birthdate = record[BIRTHDATE]
 
+    # if user_birthdate:
     year = 0
     month = 1
     day = 2
@@ -251,9 +289,8 @@ def get_email_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if str(name[current_surname]) == surname[0]:
             user_email = record[EMAIL]
-
     return user_email
 
 
@@ -273,7 +310,7 @@ def get_first_name_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if name[current_surname] == surname[0]:
             user_firstname = name[current_firstname]
 
     return user_firstname

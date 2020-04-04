@@ -18,7 +18,11 @@ def run():
                "Get average games sold by a manufacturer",
                "Get age of a game by its title",
                "Find a game by a keyword",
-               "Print the whole table"]
+               "Add a new record to table",
+               "Update an existing record",
+               "Delete an existing record from table",
+               "Print the whole table",
+               "Write the current table to file"]
 
     welcome = """
                  _______.___________.  ______   .______       _______    ____    __    ____  ___      .______       _______     _______.
@@ -80,9 +84,31 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "7":
+            id =  store.generate_random(table)
+            record_to_add = terminal_view.get_inputs(["Title: ", "Manufacturer: ", "Price: ", "Release date: "], "Provide the properties of the game you want to add")
+            record = []
+            record.append(id)
+            for properties in record_to_add:
+                record.append(properties)
+            store.create(table, record)
+
+        elif choice == "8":
+            id_ = terminal_view.get_inputs(["Game ID: "], "Provide the game ID of the record you want to update")
+            record = terminal_view.get_inputs(["Title: ", "Manufacturer: ", "Price: ", "Release date: "], "Provide the properties of the game you want to be updated")
+            store.update(table, id_[0], record)
+        
+        elif choice == "9":
+            id_ = terminal_view.get_inputs(["Game ID: "], "Provide the game ID you want to delete")
+            store.delete(table, id_[0])
+
+        elif choice == "10":
             table_to_print = store.check_table(table)
             title_list = store.get_table()[0]
             terminal_view.print_table(table_to_print, title_list)
+        
+        elif choice == "11":
+            file_to_write = terminal_view.get_inputs(["File name: "], "Provide a name of file to write the table to")
+            store.write_table_to_file(file_to_write[0], table)
 
         elif choice == "0":
             terminal_view.print_result("", "You are going back to the main menu")

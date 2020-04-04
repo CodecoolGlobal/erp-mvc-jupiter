@@ -2,7 +2,8 @@
 from view import terminal_view
 from model.crm import crm
 
-TABLE = crm.data_manager.get_table_from_file('model/crm/customers.csv')
+# TABLE = crm.data_manager.get_table_from_file('model/crm/customers.csv')
+TABLE = crm.get_table('model/crm/customers.csv')
 
 def run():
     """
@@ -43,6 +44,11 @@ def run():
         elif choice == "4":
             surname = terminal_view.get_inputs(["Surname: "], "Provide customer surname")
             label = "Age of this customer is:"
+            surnames = crm.read_surname(TABLE)
+            
+            while surname[0] not in surnames:
+                surname = terminal_view.get_inputs(["Surname: "], "Provide correct customer surname")
+ 
             result = crm.get_age_by(surname, TABLE)
             terminal_view.print_result(result, label)
 
