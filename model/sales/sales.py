@@ -155,5 +155,49 @@ def rank_by_manufacturer(table):
     return manufacturers_counts
 
 
-def gererate_rapoprt():
-    pass
+def get_sold_copies(table, store_id):
+    """ Gets total number of sold copies by id, 
+    
+    Args:
+    list (of lists) - sales database
+    string - item id in store database """
+    
+    store_id_position = 1
+    quantity_position = 4
+    sold_copies = 0
+
+    for record in table: 
+        if str(record[store_id_position]) == str(store_id):
+            sold_copies = sold_copies + int(record[quantity_position])
+        
+    return sold_copies
+
+def generate_raport(table):
+    """ Generate a report of sold items and earned money per game. 
+    
+    Args: 
+    list(of lists) - list from store containing items
+    list(of lists) - list from sales containing, among others, number of sold copies
+    
+    Return: 
+    list(of lists) - containing items and money earned per item """
+
+    item_table = store.get_table()
+    item_table = store.check_table(item_table)
+    raport = []
+
+    id_position = 0
+    title_position = 1
+    price_position = 3
+    earnings = 0 
+
+    for item in item_table: 
+        price = item[price_position]
+        sold_copies = get_sold_copies(table, item[id_position])
+        if price and sold_copies:
+            earnings = int(price) * int(sold_copies)
+            print(f"price = {price}, sold copies = {sold_copies}, earnings = {earnings}")
+            raport_row = [item[title_position], str("earnings")]
+            raport.append(raport_row)
+    
+    return raport
