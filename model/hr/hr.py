@@ -25,6 +25,7 @@ def get_table(table_adress):
 
     return table
 
+
 def read_surname(table):
     """ Read column of surnames into variable
     
