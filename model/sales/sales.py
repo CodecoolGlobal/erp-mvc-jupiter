@@ -100,7 +100,7 @@ def filter_by_customer(table, customer):
     """
     transactions = []
     for record in table:
-        if CUSTOMER_ID == customer:
+        if record[CUSTOMER_ID] == customer:
             transactions.append(record)
     return transactions
 
