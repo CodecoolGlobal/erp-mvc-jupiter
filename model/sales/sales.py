@@ -175,8 +175,8 @@ def most_earned(table):
                             money_earned[person_name] = int(amount_sold * game_price)
     temp = 0
     for employee in money_earned:
-        if int(money_earned[employee]) > temp:
-            temp = most_earned_employee
+        if money_earned[employee] > temp:
+            temp = money_earned[employee]
             most_earned_employee = str(employee) + ": " + str(money_earned[employee])
     return most_earned_employee
 
