@@ -7,7 +7,7 @@ from model import data_manager
 # global variables go here: 
 
 def get_table():
-    file = "model/store/games.csv"
+    file = "model/sales/sales.csv"
     table = data_manager.get_table_from_file(file)
     return table
 
