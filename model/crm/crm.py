@@ -28,6 +28,29 @@ def get_table(table_adress):
     return table
 
 
+def read_surname(table):
+    """ Read column of surnames into variable
+    
+    Args: 
+    list (of lists) - database
+
+    Return: 
+    list(of strings) - column of surnames 
+     """
+
+    surnames = []
+    names = []
+    surname_id = 1
+
+    for row in table:
+        names.append(row[NAME].split(" "))
+    
+    for row in names: 
+        surnames.append(row[surname_id])
+    
+    return surnames
+
+
 def generate_random(table):
     """
     Generates random and unique string. Used for id/key generation:
@@ -224,13 +247,14 @@ def get_age_by(surname, table):
 
     current_firstname = 0
     current_surname = 1
-    user_birthdate = ""
+    user_birthdate = "0001-01-01"
 
     for record in table:
         name = record[NAME].split(" ")
-        if name[current_surname] == surname:
+        if name[current_surname] == surname[0]:
             user_birthdate = record[BIRTHDATE]
 
+    # if user_birthdate:
     year = 0
     month = 1
     day = 2
@@ -265,7 +289,7 @@ def get_email_by(surname, table):
 
     for record in table:
         name = record[NAME].split(" ")
-        if str(name[current_surname]) == str(surname[0]):
+        if str(name[current_surname]) == surname[0]:
             user_email = record[EMAIL]
     return user_email
 
