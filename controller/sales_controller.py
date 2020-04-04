@@ -66,7 +66,7 @@ def run():
 
         elif choice == "4":
             label = "Number of games sold by a given manufacturer: "
-            manufacturer = terminal_view.get_inputs(["Customer ID: "], "Provide the manufacturer's name")
+            manufacturer = terminal_view.get_inputs(["Manufacturer: "], "Provide the manufacturer's name")
             result = sales.filter_by_manufacturer(table, manufacturer)
             terminal_view.print_result(result, label)
 
