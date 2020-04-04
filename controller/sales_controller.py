@@ -65,7 +65,9 @@ def run():
             pass
 
         elif choice == "5":
-            pass
+            label = "Most earning employee"
+            result = sales.most_earned(table)
+            terminal_view.print_result(result, label)
 
         elif choice == "6":
             label = "The requested ranking: "

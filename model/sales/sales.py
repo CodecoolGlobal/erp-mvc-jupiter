@@ -5,6 +5,7 @@ import random
 
 from model import data_manager
 from model.store import store
+from model.hr import hr
 
 # global variables go here: 
 
@@ -102,7 +103,55 @@ def filter_by_manufacturer():
 
 
 def most_earned(table):
-    pass
+    """
+    As a user, I want to know which employee earned the most money so that I can pay her a bonus.
+    Args:
+        table (list): Data table to work on. First columns containing the keys.
+        employee_id (str): employee_id
+    Return:
+        String : most earned employee and money earned by him
+
+
+    """
+    product_index = 1
+    employee_id_index = 2
+    amount_sold_index = 4
+
+    person_id_index = 0
+    person_name_index = 1
+
+    game_index = 0
+    price_index = 3
+
+    store_table = store.get_table()
+    store.check_table(store_table)
+    hr_table = hr.get_table('model/hr/persons.csv')
+    money_earned = {}
+    most_earned_employee = []
+
+    for record in table:
+        product_id = record[product_index]
+        employee_id = record[employee_id_index]
+        amount_sold = int(record[amount_sold_index])
+        for game in store_table:
+            game_id = game[game_index]
+            if game_id == product_id:
+                game_price = int(game[price_index])
+                for person in hr_table:
+                    person_id = person[person_id_index]
+                    if person_id == employee_id:
+                        person_name = person[person_name_index]
+                        if person_name in money_earned:
+                            money_earned[person_name] += int(amount_sold * game_price)
+                        else:
+                            money_earned[person_name] = int(amount_sold * game_price)
+    temp = 0
+    for employee in money_earned:
+        if int(money_earned[employee]) > temp:
+            temp = most_earned_employee
+            most_earned_employee = str(employee) + ": " + str(money_earned[employee])
+    return most_earned_employee
+
 
 def rank_by_manufacturer(table):
     manufacturers_counts = {}
