@@ -70,7 +70,9 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "5":
-            pass
+            label = "Most earning employee"
+            result = sales.most_earned(table)
+            terminal_view.print_result(result, label)
 
         elif choice == "6":
             label = "Manufacurer | sold copies"
@@ -81,7 +83,7 @@ def run():
             raport = sales.generate_raport(table)
             raport_header = ["title", "total earnings"]
             terminal_view.print_table(raport, raport_header)
-            # terminal_view.print_result(report, "Total earnings: ")
+            data_manager.write_table_to_file("model/sales/raport.csv", raport)
 
         elif choice == "8":
             pass
