@@ -85,7 +85,7 @@ def filter_by_employee(table, employee_id):
 
 def filter_by_customer(table, customer):
     """
-    As a user, I want to filter my transactions so that I can know deals with a specific customer.
+    Filter transactions in search of deals with a specific customer.
     
     Args: 
         table (list): 
@@ -104,11 +104,11 @@ def filter_by_customer(table, customer):
 
 def filter_by_manufacturer(table, manufacturer):
     """
-    As a user, I want to filter my transactions so that I can know sales of games per a specific manufacturer.
+    Filter transactions to get sales of games per a specific manufacturer.
     
     Args:
         table (list):
-        manufacturer (string): 
+        manufacturer (string): manufacturer's name
 
     Returns:
         sales (): sales of games per a specific manufacturer
@@ -117,7 +117,7 @@ def filter_by_manufacturer(table, manufacturer):
     store_id_list = []
     for record in store_table:
         if record[STORE_MANUFACTURER] == manufacturer:
-                store_id_list.append(record[STORE_PRODUCT_ID])
+            store_id_list.append(record[STORE_PRODUCT_ID])
     
     sales = 0
     for record in table:

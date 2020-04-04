@@ -59,7 +59,10 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "3":
-            pass
+            label = "The transactions made by given customer: "
+            customer_id = terminal.view.get_inputs(["Customer ID: "], "Provide the customer ID to search for his/her transactions")
+            result = sales.filter_by_customer(table, customer_id)
+            terminal_view.print_result(result, label)
 
         elif choice == "4":
             pass
