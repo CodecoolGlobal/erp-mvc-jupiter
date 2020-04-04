@@ -8,11 +8,10 @@ def run():
                "Filter transactions by the employee",
                "Filter transactions by the customer",
                "Get the sales of games by a manufacturer",
-               "Get age of a game by its title",
                "Get the most earning employee",
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
-               ]
+               "Additional function"]
 
 
     welcome = """
@@ -69,13 +68,15 @@ def run():
             pass
 
         elif choice == "6":
-           pass
+            label = "The requested ranking: "
+            result = sales.rank_by_manufacturer(table)
+            terminal_view.print_result(result, label)
 
         elif choice == "7":
             pass
 
         elif choice == "8":
-             pass
+            pass
 
         elif choice == "0":
             terminal_view.print_result("", "You are going back to the main menu")

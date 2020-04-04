@@ -102,9 +102,9 @@ def filter_by_manufacturer():
 
 
 def most_earned(table):
+    pass
 
-
-def rank_by_manufacturer():
+def rank_by_manufacturer(table):
     manufacturers_counts = {}
     product_id_index = 3
     amount_sold_index = 4
@@ -122,7 +122,7 @@ def rank_by_manufacturer():
             manufacturer = game[manufacturer_index]
             if product_id == game_id:
                 if manufacturer in manufacturers_counts:
-                    manufacturers_counts[manufacturer] += amount sold
+                    manufacturers_counts[manufacturer] += amount_sold
                 else:
                     manufacturers_counts[manufacturer] = amount_sold
 
