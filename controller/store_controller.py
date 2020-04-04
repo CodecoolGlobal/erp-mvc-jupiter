@@ -35,6 +35,7 @@ def run():
     """
 
     table = store.get_table()
+    store.check_table(table)
 
     choice = None
 
@@ -102,9 +103,8 @@ def run():
             store.delete(table, id_[0])
 
         elif choice == "10":
-            table_to_print = store.check_table(table)
             title_list = store.get_table()[0]
-            terminal_view.print_table(table_to_print, title_list)
+            terminal_view.print_table(table, title_list)
         
         elif choice == "11":
             file_to_write = terminal_view.get_inputs(["File name: "], "Provide a name of file to write the table to")
