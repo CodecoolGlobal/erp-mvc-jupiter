@@ -8,6 +8,10 @@ from model.store import store
 
 # global variables go here: 
 
+CUSTOMER_ID = 2
+
+# sales.csv: 'id, employee_id, customer_id, product_id, number_of_items'
+
 def get_table():
     file = "model/sales/sales.csv"
     table = data_manager.get_table_from_file(file)
@@ -75,8 +79,23 @@ def filter_by_employee(table, employee_id):
     return operations
 
 
-def filter_by_customer():
-    pass
+def filter_by_customer(table, customer):
+    """
+    As a user, I want to filter my transactions so that I can know deals with a specific customer.
+    
+    Args: 
+        table (list): 
+        customer (): customer's id
+
+    Returns:
+        transactions (list):        
+    
+    """
+    transactions = []
+    for record in table:
+        if CUSTOMER_ID = customer:
+            transactions.append(record)
+    return transactions
 
 
 def filter_by_manufacturer():

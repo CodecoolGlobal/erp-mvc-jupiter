@@ -93,9 +93,13 @@ def print_result(result, label):
     """
 
     if isinstance(result, list):
-        print(LIGHTGREEN + label + RESET)
+        print(LIGHTGREEN + label + '\n' + RESET)
         for element in result:
-            print(YELLOW + str(element) + RESET)
+            for sign in element:
+                if sign == ";":
+                    sign = ' :  '
+                print(YELLOW + str(sign) + RESET, end='')
+            print('')
     elif isinstance(result, dict):
         first_width = 0
         secend_width = 0
@@ -108,7 +112,7 @@ def print_result(result, label):
                 secend_width = len(result[key])
         first_width += 2
         secend_width += 1
-        print(label)
+        print('\n' + label + '\n'*2)
         for key in result:
             key = str(key)
             result[key] = str(result[key])
@@ -116,9 +120,9 @@ def print_result(result, label):
             print('|' + '-' * (first_width + secend_width + 2) + '|')
             print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)) + '| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
         print('|' + '-' * (first_width + secend_width + 2) + '|')
-        
+    
     else:
-        print(LIGHTGREEN + label +'\n'*2 + YELLOW + result + RESET + '\n'*2)
+        print(LIGHTGREEN + label + '\n'*2 + YELLOW + result + RESET + '\n'*2)
     input(REVERSE + "Press enter to continue" + RESET)
     clear()
 
@@ -144,7 +148,7 @@ def print_menu(title, list_options, exit_message):
         None: This function doesn't return anything it only prints to console.
     """
     order_number = 1
-    print(RED + title + RESET)
+    print(RED + '\n'*2 + title + RESET)
     for option in list_options:
         print(GREEN + "     (" + str(order_number) + ") ", option + RESET)
         order_number += 1
