@@ -2,7 +2,7 @@
 from view import terminal_view
 from model.hr import hr
 
-TABLE = hr.data_manager.get_table_from_file('model/hr/persons.csv')
+TABLE = hr.get_table('model/hr/persons.csv')
 
 def run():
     """

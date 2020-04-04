@@ -10,6 +10,22 @@ EMAIL = 2
 BIRTH_DATE = 3
 SALARY = 4
 
+def get_table(table_adress):
+    """ Loads table from file using data mangager
+    
+    Args: 
+    string; table path
+    
+    Return: 
+    list (of lists): crm module database"""
+
+    table = data_manager.get_table_from_file(table_adress)
+    if table[0][0] == 'id':
+        table = table[1:]
+
+    return table
+
+
 def generate_random(table):
     """
     Generates random and unique string. Used for id/key generation:
