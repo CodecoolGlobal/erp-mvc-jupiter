@@ -38,8 +38,7 @@ def run():
     while choice != "0":
         choice = terminal_view.get_choice_store(welcome, options)
         table = sales.get_table()
-        print(table)
-        
+       
         if choice == "1":     
             label = "Provide new record /n"
             id = sales.generate_random(table)
@@ -79,7 +78,10 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "7":
-            pass
+            raport = sales.generate_raport(table)
+            raport_header = ["title", "total earnings"]
+            terminal_view.print_table(raport, raport_header)
+            # terminal_view.print_result(report, "Total earnings: ")
 
         elif choice == "8":
             pass
