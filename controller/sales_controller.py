@@ -1,4 +1,4 @@
-from model.store import store
+from model.sales import sales
 from view import terminal_view
 
 
@@ -33,7 +33,7 @@ def run():
              ####### #######    ####### ####### 
                                                 
     """
-    #table = sales.get_table()
+    table = sales.get_table()
 
 
     choice = None
@@ -45,7 +45,10 @@ def run():
            pass
 
         elif choice == "2":
-          pass
+            label = "The transactions made by given employee: "
+            employee_id = terminal_view.get_inputs(["Employee ID: "], "Provide the employee ID to search for his/her transactions")
+            result = sales.filter_by_employee(table, employee_id[0])
+            terminal_view.print_result(result, label)
 
         elif choice == "3":
             pass

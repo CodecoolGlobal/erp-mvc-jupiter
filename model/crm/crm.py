@@ -72,10 +72,15 @@ def generate_random(table):
 
     printables = [printables_letters_lower, printables_letters_upper, printables_numbers, printables_specials]
 
-    for printables_set in printables:
-        choices = random.choices(printables_set, k = 2)
-        generated = generated + choices[0] + choices[1]
-        generated = ''.join(random.sample(generated, len(generated)))
+    hash_list = ""
+    for record in table:
+        hash_list.append(record[ID])
+
+    while generated not in hash_list:
+        for printables_set in printables:
+            choices = random.choices(printables_set, k = 2)
+            generated = generated + choices[0] + choices[1]
+            generated = ''.join(random.sample(generated, len(generated)))
     return generated
 
 
