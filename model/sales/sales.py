@@ -77,6 +77,17 @@ def add_transaction(table, id, store_id, hr_id, crm_id, quantity):
 
 
 def filter_by_employee(table, employee_id):
+    """
+    Filter operations in search of deals made by a specific employee.
+
+    Args:
+        table (list): table from sales file
+        employee_id: employee_id
+
+    Returns:
+        operations (list):
+
+    """
     operations = []
     employee_id_index = 1
     for record in table:
@@ -182,6 +193,16 @@ def most_earned(table):
 
 
 def rank_by_manufacturer(table):
+    """
+    Gets total number of sold copies by manufacturer,
+
+    Args:
+        table (list): table from sales file
+
+    Return:
+        dictionary : Manufacturer : Sum of sold products
+    """
+
     manufacturers_counts = {}
     product_id_index = 3
     amount_sold_index = 4
