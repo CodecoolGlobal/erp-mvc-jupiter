@@ -165,22 +165,20 @@ def employees_earning(table):
     store.check_table(store_table)
     hr_table = hr.get_table('model/hr/persons.csv')
     money_earned = {}
-    for record in table:
-        product_id = record[product_index]
-        employee_id = record[employee_id_index]
-        amount_sold = int(record[amount_sold_index])
-        for game in store_table:
-            game_id = game[game_index]
-            if game_id == product_id:
-                game_price = int(game[price_index])
-                for person in hr_table:
-                    person_id = person[person_id_index]
-                    if person_id == employee_id:
-                        person_name = person[person_name_index]
-                        if person_name in money_earned:
-                            money_earned[person_name] += int(amount_sold * game_price)
-                        else:
-                            money_earned[person_name] = int(amount_sold * game_price)
+    for person in hr_table:
+        person_id = person[person_id_index]
+        person_name = person[person_name_index]
+        money_earned[person_name] = 0
+        for record in table:
+            product_id = record[product_index]
+            employee_id = record[employee_id_index]
+            amount_sold = int(record[amount_sold_index])
+            if person_id == employee_id:
+                for game in store_table:
+                    game_id = game[game_index]
+                    if game_id == product_id:
+                        game_price = int(game[price_index])
+                        money_earned[person_name] += int(amount_sold * game_price)
     return money_earned
 
 
@@ -213,12 +211,18 @@ def min_earned(table):
     """
     money_earned = employees_earning(table)
     temp = 0
+    min_earned_employee = [0]
     for employee in money_earned:
         if temp == 0:
             temp = money_earned[employee]
         if money_earned[employee] <= temp:
             temp = money_earned[employee]
-            min_earned_employee = str(employee) + ": " + str(money_earned[employee])
+            if money_earned[employee] > 0:
+                min_earned_employee[0] = (str(employee) + ": " + str(money_earned[employee]))
+            elif money_earned[employee] == 0:
+                min_earned_employee.append(str(employee) + ": " + str(money_earned[employee]))
+    if len(min_earned_employee) > 1:
+        min_earned_employee.pop(0)
     return min_earned_employee
 
 
