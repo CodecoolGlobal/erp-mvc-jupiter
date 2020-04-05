@@ -104,7 +104,7 @@ def filter_by_customer(table, customer):
     Args:
         table (list): Table of performed deals
         customer (): Customer's id
-    
+
     Returns:
         list: List of all transactions with specified customer
 
