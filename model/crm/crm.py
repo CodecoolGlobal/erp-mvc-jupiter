@@ -51,7 +51,6 @@ def read_surname(table):
     return surnames
 
 
-# NOT WORKING !!
 def generate_random(table):
     """
     Generates random and unique string. Used for id/key generation:
@@ -64,24 +63,24 @@ def generate_random(table):
     Returns:
         string: Random and unique string
     """
-    generated = ''
+    id_list = []
+    generated = ""
+    for game in table:
+        id = game[0]
+        id_list.append(id)
 
-    printables_letters_lower = 'abcdefghijklmnopqrstuvwxyz'
-    printables_letters_upper = printables_letters_lower.upper()
-    printables_numbers = '0123456789'
-    printables_specials = '!"#$%&\'()*+,-./:?@[\]^_`{|}~'
+    expected_length = 8
+    while generated in id_list or len(generated) != expected_length:
+        quantity = 2
+        alphabet = 'abcdefghijklmnopqrstuvwxyz'
+        characters = '!@#$%^&*()_+=-{}[]|\:"<>,.?/'
+        random_letters = [random.choice(alphabet) for i in range (quantity)] + [random.choice(alphabet).upper() for i in range (quantity)]
+        random_characters = [random.choice(characters) for i in range (quantity)]
+        random_numbers = [str(random.randint(0, 9)) for i in range (quantity)]
+        generated_list = [letter for letter in random_letters] + [character for character in random_characters] + [digit for digit in random_numbers]
+        random.shuffle(generated_list)
+        generated = "".join(generated_list)
 
-    printables = [printables_letters_lower, printables_letters_upper, printables_numbers, printables_specials]
-
-    hash_list = ""
-    for record in table:
-        hash_list.append(record[ID])
-
-    while generated not in hash_list:
-        for printables_set in printables:
-            choices = random.choices(printables_set, k = 2)
-            generated = generated + choices[0] + choices[1]
-            generated = ''.join(random.sample(generated, len(generated)))
     return generated
 
 
@@ -164,7 +163,8 @@ def delete(table, id_):
     for record_index in range(len(table)):
         if table[record_index][ID] == id_:
             table.pop(record_index)
-            return table
+    
+    return table
 
 
 # special functions:
