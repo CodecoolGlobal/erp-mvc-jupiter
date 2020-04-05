@@ -314,7 +314,7 @@ def generate_raport(table):
 
 def get_discounts(table):
     """
-    Gets all the discounts that apply to specific custumers depending on their buying history (2%,5% or 10%),
+    Gets all the discounts_money_spent that apply to specific custumers depending on their buying history (2%,5% or 10%),
 
     Args:
         table (list): table from sales file
@@ -323,7 +323,7 @@ def get_discounts(table):
         dictionary : Customer : discount granted (in percent)
     """
 
-    discounts = {}
+    discounts_money_spent = {}
     discount_levels = [100, 1000, 5000]
     discount_percents = ["2%", "5%", "10%"]
 
@@ -355,16 +355,25 @@ def get_discounts(table):
                     price = game[price_index]
                     if product_id == game_id:
                         money_spent = int(price) * int(amount_sold)
-
-                        if money_spent >= discount_levels[0] and money_spent < discount_levels[1]:
-                            discount = discount_percents[0]
-                        elif money_spent >= discount_levels[1] and money_spent < discount_levels[2]:
-                            discount = discount_percents[1]
-                        elif money_spent >= discount_levels[2]:
-                            discount = discount_percents[2]
+                        
+                        if customer_name in discounts_money_spent:
+                            discounts_money_spent[customer_name] += int(money_spent)
                         else:
-                            discount = "0%"
+                            discounts_money_spent[customer_name] = int(money_spent)
+    
+    discounts = {}
 
-                        discounts[customer_name] = discount
+    for customer_name in discounts_money_spent:
+        money_spent = discounts_money_spent[customer_name]
+        if money_spent >= discount_levels[0] and money_spent < discount_levels[1]:
+            discount = discount_percents[0]
+        elif money_spent >= discount_levels[1] and money_spent < discount_levels[2]:
+            discount = discount_percents[1]
+        elif money_spent >= discount_levels[2]:
+            discount = discount_percents[2]
+        else:
+            discount = "0%"
+
+        discounts[customer_name] = discount
 
     return discounts
