@@ -20,6 +20,7 @@ def get_table_from_file(file_name):
     
     return list_of_lists
 
+
 def write_table_to_file(file_name, table):
     """
     Writes list of lists into a csv file.
@@ -39,3 +40,20 @@ def write_table_to_file(file_name, table):
         for game in table:
             row = ", ".join(game)
             export_file.write(row + "\n")
+
+
+def get_column_from_table(table, column_id):
+    """ Return a single column from table
+    
+    Args:
+     list (of lists) - database 
+     int - id 
+     
+     Return: 
+     list - column of values """
+    
+    column = []
+    for row in table: 
+        column.append(row[column_id])
+
+    return column

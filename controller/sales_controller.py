@@ -42,12 +42,22 @@ def run():
         if choice == "1":
             label = "Provide new record /n"
             id = sales.generate_random(table)
+            id_position = 0 
 
-            store_id = terminal_view.get_inputs(["Store ID: "], "Provide product ID")
-            hr_id = terminal_view.get_inputs(["Employee ID: "], "Provide employee ID")
-            crm_id = terminal_view.get_inputs(["Customer ID: "], "Provide customer ID")
+            store_table = data_manager.get_table_from_file("model/store/games.csv")
+            store_id_list = data_manager.get_column_from_table(store_table, id_position)
+            store_id = terminal_view.get_input_from_list(store_id_list, "Provide correct store ID")
+
+            hr_table = data_manager.get_table_from_file("model/hr/persons.csv")
+            hr_id_list = data_manager.get_column_from_table(hr_table, id_position)
+            hr_id = terminal_view.get_input_from_list(hr_id_list, "Provide correct employee ID")
+
+            crm_table = data_manager.get_table_from_file("model/crm/customers.csv")
+            crm_id_list = data_manager.get_column_from_table(crm_table, id_position)
+            crm_id = terminal_view.get_input_from_list(crm_id_list, "Provide correct crm ID")
+
             qty = terminal_view.get_inputs(["Quantity: "], "Provide item quantity")
-            table_updated = sales.add_transaction(table, id, store_id[0], hr_id[0], crm_id[0], qty[0])
+            table_updated = sales.add_transaction(table, id, store_id, hr_id, crm_id, qty[0])
             data_manager.write_table_to_file("model/sales/sales.csv", table_updated)
 
         elif choice == "2":
