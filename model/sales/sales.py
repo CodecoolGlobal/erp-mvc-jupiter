@@ -355,6 +355,15 @@ def get_discounts(table):
                     if product_id == game_id:
                         money_spent = int(price) * int(amount_sold)
 
-                        discounts[customer_name] = money_spent
+                        if money_spent >= discount_levels[0] and money_spent < discount_levels[1]:
+                            discount = discount_percents[0]
+                        elif money_spent >= discount_levels[1] and money_spent < discount_levels[2]:
+                            discount = discount_percents[1]
+                        elif money_spent >= discount_levels[2]:
+                            discount = discount_percents[2]
+                        else:
+                            discount = "0%"
+
+                        discounts[customer_name] = discount
 
     return discounts
