@@ -206,3 +206,21 @@ def print_error_message(message):
         None: This function doesn't return anything it only prints to console.
     """
     print(RED + "Error: " + message + RESET)
+
+
+def get_input_from_list(list, message):
+    """ Ask for input as long as user will not provide input from list
+    
+    Args:
+    list - list to compare against
+    message - string to print while asking for input
+    
+    Return: 
+    str - validated input  """
+
+    input_value = ""
+
+    while input_value not in list:
+        input_value = get_inputs(["Value: "], message)[0]
+
+    return input_value
