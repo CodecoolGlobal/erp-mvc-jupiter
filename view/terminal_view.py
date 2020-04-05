@@ -36,7 +36,7 @@ def print_table(table, title_list):
         |   0    | Counter strike |    fps  |
         |--------|----------------|---------|
         |   1    |       fo       |    fps  |
-        \-----------------------------------/
+       \\-----------------------------------/
 
     Args:
         table (list): list of lists - table to display
@@ -62,7 +62,8 @@ def print_table(table, title_list):
 
     for i in range(0, len(title_list)):
         temp = round((row_width[i] - len(title_list[i]))/2)
-        print(GREEN + "|" + " " * temp + BOLD + title_list[i] + GREEN + " " * (row_width[i] - (temp + len(title_list[i]))), end='')
+        print(GREEN + "|" + " " * temp + BOLD + title_list[i], end='')
+        print(GREEN + " " * (row_width[i] - (temp + len(title_list[i]))), end='')
     print("|" + RESET)
 
     for line in range(0, len(table)):
@@ -71,7 +72,8 @@ def print_table(table, title_list):
         print("|" + RESET)
         for index in range(0, len(table[line])):
             temp = round((row_width[index] - len(table[line][index]))/2)
-            print(GREEN + "|" + " " * temp + BLUE + table[line][index] + GREEN + " " * (row_width[index]-temp-len(table[line][index])), end='')
+            print(GREEN + "|" + " " * temp + BLUE + table[line][index], end='')
+            print(GREEN + " " * (row_width[index]-temp-len(table[line][index])), end='')
         print("|" + RESET)
 
     print(GREEN + "\\" + "-" * (table_lenght+len(title_list)-1) + "/" + RESET)
@@ -119,9 +121,10 @@ def print_result(result, label):
             result[key] = str(result[key])
             temp = round((first_width-len(key))/2)
             print('|' + '-' * (first_width + secend_width + 2) + '|')
-            print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)) + '| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
+            print('|' + ' ' * temp + key + ' '*(first_width - temp - len(key)), end='')
+            print('| ' + result[key] + ' ' * (secend_width - len(result[key])) + '|')
         print('|' + '-' * (first_width + secend_width + 2) + '|')
-    
+
     else:
         print(LIGHTGREEN + label + '\n'*2 + YELLOW + str(result) + RESET + '\n'*2)
     input(REVERSE + "Press enter to continue" + RESET)
@@ -208,21 +211,21 @@ def print_error_message(message):
     print(RED + "Error: " + message + RESET)
 
 
-def get_input_from_list(basic_list, alternative_list , message):
+def get_input_from_list(basic_list, alternative_list, message):
     """ Ask for input as long as user will not provide input from list
-    
+
     Args:
     list - list to compare against (id)
     list - list to compare against (name)
     message - string to print while asking for input
-    
-    Return: 
+
+    Return:
     str - validated input  """
 
     input_value = ""
 
     combined_list = basic_list + alternative_list
-    
+
     while input_value not in combined_list:
         input_value = get_inputs(["Value: "], message)[0]
 
