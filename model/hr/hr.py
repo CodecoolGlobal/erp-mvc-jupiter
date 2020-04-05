@@ -37,7 +37,7 @@ def read_surname(table):
         table (list) - Database
 
     Return:
-        list - Column of surnames 
+        list - Column of surnames
     """
 
     surnames = []
@@ -65,8 +65,7 @@ def generate_random(table):
     Returns:
         string: Random and unique string
     """
-
-    # redo to meet requirements
+    # todo: redo to meet requirements
 
     generated = ''
 
@@ -160,14 +159,12 @@ def get_oldest_person(table):
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
     """
-    # to do: extract inner loops into separate functions (e.g. compare_months, compare_days)
-    
     oldest_birth_date = FUTURE
     for row in table:
         splited_birth_date = row[BIRTH_DATE].split('-')
-        if int(splited_birth_date[0]) <= int(oldest_birth_date[0]):
+        if int(splited_birth_date[YEAR]) <= int(oldest_birth_date[YEAR]):
             if int(splited_birth_date[0]) == int(oldest_birth_date[0]) and int(splited_birth_date[1]) <= int(oldest_birth_date[1]):
-                if int(splited_birth_date[1]) == int(oldest_birth_date[1]) and int(splited_birth_date[2]) < int(oldest_birth_date[2]):
+                if int(splited_birth_date[1]) == int(oldest_birth_date[1]) and int(splited_birth_date[2]) <= int(oldest_birth_date[2]):
                     oldest_birth_date = splited_birth_date
                 oldest_birth_date = splited_birth_date
             oldest_birth_date = splited_birth_date
