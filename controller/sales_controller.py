@@ -9,11 +9,11 @@ def run():
                "Filter transactions by the employee",
                "Filter transactions by the customer",
                "Get the sales of games by a manufacturer",
-               "Get the most earning employee",
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
-               "Get the worst earning employee",
                "Get all the granted discounts",
+               "Get the most earning employee",
+               "Get the worst earning employee",
                "Get all employee sales results"]
 
     welcome = """
@@ -85,31 +85,31 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "5":
-            label = "Most earning employee"
-            result = sales.most_earned(table)
-            terminal_view.print_result(result, label)
-
-        elif choice == "6":
             label = "Manufacturer | sold copies"
             result = sales.rank_by_manufacturer(table)
             terminal_view.print_result(result, label)
 
-        elif choice == "7":
+        elif choice == "6":
             raport = sales.generate_raport(table)
             raport_header = ["title", "total earnings"]
             terminal_view.print_table(raport, raport_header)
             data_manager.write_table_to_file("model/sales/raport.csv", raport)
 
+        elif choice == "7":
+            label = "All discounts granted"
+            result = sales.get_discounts(table)
+            terminal_view.print_result(result, label)
+        
         elif choice == "8":
+            label = "Most earning employee"
+            result = sales.most_earned(table)
+            terminal_view.print_result(result, label)
+
+        elif choice == "9":
             label = "Min earning employee"
             result = sales.min_earned(table)
             terminal_view.print_result(result, label)
 
-        elif choice == "9":
-            label = "All discounts granted"
-            result = sales.get_discounts(table)
-            terminal_view.print_result(result, label)
-    
         elif choice == "10":
             label = "All employee sales results"
             result = sales.employees_earning(table)
