@@ -9,7 +9,7 @@ NAME = 1
 EMAIL = 2
 BIRTH_DATE = 3
 SALARY = 4
-
+FUTURE = [2019, 11, 20]  # Blade Runner's action setting time
 
 def get_table(table_adress):
     """ 
@@ -162,7 +162,7 @@ def get_oldest_person(table):
     """
     # to do: extract inner loops into separate functions (e.g. compare_months, compare_days)
     
-    oldest_birth_date = [3000, 0, 0]  # asume we'r dealing with already born --> that should be another constant
+    oldest_birth_date = FUTURE
     for row in table:
         splited_birth_date = row[BIRTH_DATE].split('-')
         if int(splited_birth_date[0]) <= int(oldest_birth_date[0]):
@@ -191,22 +191,26 @@ def get_persons_closest_to_average_salary(table):
         list: List of strings (name or names if there are two more with the same value)
     """
 
+    # calculate average salary
     sum = 0
     for row in table:
         sum += int(row[SALARY])
-    avg_sal = sum / len(table)
+    average_salary = sum / len(table)
 
+    # genarate list of differences with regard to the average salary
     diff_list = []
     for row in table:
-        diff = abs(int(row[SALARY]) - avg_sal)
+        diff = abs(int(row[SALARY]) - average_salary)
         diff_list.append(diff)
     
+    # find the smallest difference and so the closest salary
     smallest_diff = diff_list[0]
     for row_index in range(len(diff_list)):
         if diff_list[row_index] < smallest_diff:
             smallest_diff = diff_list[row_index]
             closest_salary = table[row_index][SALARY]
     
+    # generate list of names of empleyees' with salary closest to average
     persons_closest_to_average_salary = []
     for row in table:
         if row[SALARY] == closest_salary:
@@ -217,7 +221,7 @@ def get_persons_closest_to_average_salary(table):
 
 def get_shortest_surname(table):
     """
-    Question: Who's got the shortest surname 
+    Question: Who's got the shortest surname
 
     Args:
         table: Data table to work on

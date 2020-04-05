@@ -99,11 +99,11 @@ def filter_by_employee(table, employee_id):
 
 def filter_by_customer(table, customer):
     """
-    Filter transactions in search of all deals with specified customer.
+    Filter transactions in search of all transactions with specified customer.
 
     Args:
-        table (list): Table of performed deals
-        customer (): Customer's id
+        table (list): Table of performed transactions
+        customer (string): Customer's id
     
     Returns:
         list: List of all transactions with specified customer
@@ -127,7 +127,9 @@ def filter_by_manufacturer(table, manufacturer):
     Returns:
         integer: Sales of games by specified manufacturer
     """
+
     store_table = store.get_table()
+    
     store_id_list = []
     for record in store_table:
         if record[STORE_MANUFACTURER] == manufacturer:
