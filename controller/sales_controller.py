@@ -12,7 +12,8 @@ def run():
                "Get the most earning employee",
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
-               "Get the worst earning employee"]
+               "Get the worst earning employee",
+               "Get all the granted discounts"]
 
     welcome = """
               #####     #        #####     #
@@ -88,7 +89,7 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "6":
-            label = "Manufacurer | sold copies"
+            label = "Manufacturer | sold copies"
             result = sales.rank_by_manufacturer(table)
             terminal_view.print_result(result, label)
 
@@ -101,6 +102,11 @@ def run():
         elif choice == "8":
             label = "Min earning employee"
             result = sales.min_earned(table)
+            terminal_view.print_result(result, label)
+
+        elif choice == "9":
+            label = "All discounts granted"
+            result = sales.get_discounts(table)
             terminal_view.print_result(result, label)
 
         elif choice == "0":
