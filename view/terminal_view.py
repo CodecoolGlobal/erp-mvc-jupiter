@@ -221,14 +221,10 @@ def get_input_from_list(basic_list, alternative_list , message):
 
     input_value = ""
 
-    print(basic_list)
-    print(alternative_list)
-
     combined_list = basic_list + alternative_list
     
     while input_value not in combined_list:
         input_value = get_inputs(["Value: "], message)[0]
-        print(input_value)
 
     if input_value in alternative_list:
         for index in range(len(basic_list)):
