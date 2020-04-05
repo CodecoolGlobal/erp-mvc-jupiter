@@ -49,7 +49,7 @@ def generate_random(table):
         quantity = 2
         alphabet = 'abcdefghijklmnopqrstuvwxyz'
         characters = '!@#$%^&*()_+=-{}[]|\\:"<>,.?/'
-        random_letters = [random.choice(alphabet) for i in range(quantity)] + [random.choice(alphabet).upper() for i in range (quantity)]
+        random_letters = [random.choice(alphabet) for i in range(quantity)] + [random.choice(alphabet).upper() for i in range(quantity)]
         random_characters = [random.choice(characters) for i in range(quantity)]
         random_numbers = [str(random.randint(0, 9)) for i in range(quantity)]
         generated_list = [letter for letter in random_letters] + [character for character in random_characters] + [digit for digit in random_numbers]
@@ -130,7 +130,7 @@ def filter_by_manufacturer(table, manufacturer):
     """
 
     store_table = store.get_table()
-    
+
     store_id_list = []
     for record in store_table:
         if record[STORE_MANUFACTURER] == manufacturer:
@@ -310,6 +310,7 @@ def generate_raport(table):
             raport.append(raport_row)
 
     return raport
+
 
 def get_discounts(table):
     """

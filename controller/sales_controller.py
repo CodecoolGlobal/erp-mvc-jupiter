@@ -13,7 +13,8 @@ def run():
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
                "Get the worst earning employee",
-               "Get all the granted discounts"]
+               "Get all the granted discounts",
+               "Get all employee sales results"]
 
     welcome = """
               #####     #        #####     #
@@ -107,6 +108,11 @@ def run():
         elif choice == "9":
             label = "All discounts granted"
             result = sales.get_discounts(table)
+            terminal_view.print_result(result, label)
+    
+        elif choice == "10":
+            label = "All employee sales results"
+            result = sales.employees_earning(table)
             terminal_view.print_result(result, label)
 
         elif choice == "0":
