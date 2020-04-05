@@ -6,6 +6,7 @@ import random
 from model import data_manager
 from model.store import store
 from model.hr import hr
+from model.crm import crm
 
 # global variables go here:
 
@@ -99,7 +100,7 @@ def filter_by_employee(table, employee_id):
 
 def filter_by_customer(table, customer):
     """
-    Filter transactions in search of all deals with specified customer.
+    Filter transactions in search of all transactions with specified customer.
 
     Args:
         table (list): Table of performed deals
@@ -127,7 +128,9 @@ def filter_by_manufacturer(table, manufacturer):
     Returns:
         integer: Sales of games by specified manufacturer
     """
+
     store_table = store.get_table()
+    
     store_id_list = []
     for record in store_table:
         if record[STORE_MANUFACTURER] == manufacturer:
@@ -307,3 +310,51 @@ def generate_raport(table):
             raport.append(raport_row)
 
     return raport
+
+def get_discounts(table):
+    """
+    Gets all the discounts that apply to specific custumers depending on their buying history (2%,5% or 10%),
+
+    Args:
+        table (list): table from sales file
+
+    Return:
+        dictionary : Customer : discount granted (in percent)
+    """
+
+    discounts = {}
+    discount_levels = [100, 1000, 5000]
+    discount_percents = ["2%", "5%", "10%"]
+
+    customer_id_index = 2
+    amount_sold_index = 4
+    id_index = 0
+    product_id_index = 3
+    name_index = 1
+    price_index = 3
+
+    store_table = store.get_table()
+    store.check_table(store_table)
+
+    crm_table = crm.get_table('model/crm/customers.csv')
+
+    for record in table:
+        product_id = record[product_id_index]
+        amount_sold = record[amount_sold_index]
+        customer_id = record[customer_id_index]
+
+        for customer in crm_table:
+            customer_name = customer[name_index]
+            client_id = customer[id_index]
+
+            if customer_id == client_id:
+
+                for game in store_table:
+                    game_id = game[id_index]
+                    price = game[price_index]
+                    if product_id == game_id:
+                        money_spent = int(price) * int(amount_sold)
+
+                        discounts[customer_name] = money_spent
+
+    return discounts

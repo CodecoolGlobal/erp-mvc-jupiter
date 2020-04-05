@@ -12,7 +12,8 @@ def run():
                "Get the most earning employee",
                "Get a ranking of sold items per manufacturer",
                "Get a ranking of sold items and earned money",
-               "Get the worst earning employee"]
+               "Get the worst earning employee",
+               "Get all the granted discounts"]
 
     welcome = """
               #####     #        #####     #
@@ -43,18 +44,22 @@ def run():
             label = "Provide new record /n"
             id = sales.generate_random(table)
             id_position = 0 
+            title_position = 1
 
             store_table = data_manager.get_table_from_file("model/store/games.csv")
             store_id_list = data_manager.get_column_from_table(store_table, id_position)
-            store_id = terminal_view.get_input_from_list(store_id_list, "Provide correct store ID")
+            store_titles_list = data_manager.get_column_from_table(store_table, title_position)
+            store_id = terminal_view.get_input_from_list(store_id_list, store_titles_list, "Provide correct store ID, or game title ")
 
             hr_table = data_manager.get_table_from_file("model/hr/persons.csv")
             hr_id_list = data_manager.get_column_from_table(hr_table, id_position)
-            hr_id = terminal_view.get_input_from_list(hr_id_list, "Provide correct employee ID")
+            hr_titles_list = data_manager.get_column_from_table(hr_table, title_position)
+            hr_id = terminal_view.get_input_from_list(hr_id_list, hr_titles_list, "Provide correct employee ID, or name")
 
             crm_table = data_manager.get_table_from_file("model/crm/customers.csv")
             crm_id_list = data_manager.get_column_from_table(crm_table, id_position)
-            crm_id = terminal_view.get_input_from_list(crm_id_list, "Provide correct crm ID")
+            crm_titles_list = data_manager.get_column_from_table(crm_table, title_position)
+            crm_id = terminal_view.get_input_from_list(crm_id_list, crm_titles_list, "Provide correct customer ID, or name")
 
             qty = terminal_view.get_inputs(["Quantity: "], "Provide item quantity")
             table_updated = sales.add_transaction(table, id, store_id, hr_id, crm_id, qty[0])
@@ -84,7 +89,7 @@ def run():
             terminal_view.print_result(result, label)
 
         elif choice == "6":
-            label = "Manufacurer | sold copies"
+            label = "Manufacturer | sold copies"
             result = sales.rank_by_manufacturer(table)
             terminal_view.print_result(result, label)
 
@@ -97,6 +102,11 @@ def run():
         elif choice == "8":
             label = "Min earning employee"
             result = sales.min_earned(table)
+            terminal_view.print_result(result, label)
+
+        elif choice == "9":
+            label = "All discounts granted"
+            result = sales.get_discounts(table)
             terminal_view.print_result(result, label)
 
         elif choice == "0":
