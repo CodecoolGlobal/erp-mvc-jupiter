@@ -99,14 +99,14 @@ def filter_by_employee(table, employee_id):
 
 def filter_by_customer(table, customer):
     """
-    Filter transactions in search of deals with a specific customer.
+    Filter transactions in search of all deals with specified customer.
 
     Args:
-        table (list):
-        customer (): customer's id
-
+        table (list): Table of performed deals
+        customer (): Customer's id
+    
     Returns:
-        transactions (list):
+        list: List of all transactions with specified customer
 
     """
     transactions = []
@@ -118,14 +118,14 @@ def filter_by_customer(table, customer):
 
 def filter_by_manufacturer(table, manufacturer):
     """
-    Filter transactions to get sales of games per a specific manufacturer.
+    Filter transactions to get sales of games by specified manufacturer.
 
     Args:
-        table (list):
-        manufacturer (string): manufacturer's name
+        table (list): Table of performed transactions
+        manufacturer (string): Manufacturer's name
 
     Returns:
-        sales (): sales of games per a specific manufacturer
+        integer: Sales of games by specified manufacturer
     """
     store_table = store.get_table()
     store_id_list = []

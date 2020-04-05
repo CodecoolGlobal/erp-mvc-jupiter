@@ -16,10 +16,10 @@ def get_table(table_adress):
     Loads table from file using data mangager
     
     Args:
-        table_adress (string): table path
+        table_adress (string): Table path
 
     Return:
-        list: hr module database
+        list: Module database
     """
 
     table = data_manager.get_table_from_file(table_adress)
@@ -34,10 +34,10 @@ def read_surname(table):
     Read column of surnames into variable
     
     Args:
-        table (list) - database
+        table (list) - Database
 
     Return:
-        list - column of surnames 
+        list - Column of surnames 
     """
 
     surnames = []
@@ -85,8 +85,8 @@ def create(table, record):
     Adds new record to table
 
     Args:
-        table (list): table to add new record to
-        record (list): new record
+        table (list): Table to add new record to
+        record (list): New record
 
     Returns:
         list: Table with a new record
@@ -100,11 +100,11 @@ def read(table, id_):
     Get the record from the table by id
 
     Args:
-        table (list): table to get from the record
-        id_ (str): id of the record
+        table (list): Table to get from the record
+        id_ (str): Id of the record
 
     Returns:
-        list: record
+        list: Record
     """
     for record in table:
         if record[ID] == id_:
@@ -116,12 +116,12 @@ def update(table, id_, record):
     Updates specified record in the table.
 
     Args:
-        table: list in which record should be updated
-        id_ (str): id of a record to update
-        record (list): updated record
+        table: List in which record should be updated
+        id_ (str): Id of a record to update
+        record (list): Updated record
 
     Returns:
-        list: table with updated record
+        list: Table with updated record
     """
     for row in table:
         if row[ID] == id_:
@@ -135,8 +135,8 @@ def delete(table, id_):
     Removes a record with a given id from the table.
 
     Args:
-        table (list): table to remove a record from
-        id_ (str): id of a record to be removed
+        table (list): Table to remove a record from
+        id_ (str): Id of a record to be removed
 
     Returns:
         list: Table without specified record.
@@ -155,7 +155,7 @@ def get_oldest_person(table):
     Question: Who is the oldest person?
 
     Args:
-        table (list): data table to work on
+        table (list): Data table to work on
 
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
@@ -185,16 +185,16 @@ def get_persons_closest_to_average_salary(table):
     Question: Who is the closest to the average salary?
 
     Args:
-        table (list): data table to work on
+        table (list): Data table to work on
 
     Returns:
-        list: list of strings (name or names if there are two more with the same value)
+        list: List of strings (name or names if there are two more with the same value)
     """
 
     sum = 0
     for row in table:
         sum += int(row[SALARY])
-    avg_sal = sum / len(table) 
+    avg_sal = sum / len(table)
 
     diff_list = []
     for row in table:
@@ -220,10 +220,10 @@ def get_shortest_surname(table):
     Question: Who's got the shortest surname 
 
     Args:
-        table: data table to work on
+        table: Data table to work on
 
     Returns:
-        list: list of strings with names
+        list: List of strings with names
 
     """
 
@@ -241,7 +241,7 @@ def get_shortest_surname(table):
             shortest_name_lenght = len(names_list[i])
     
     # create list of shortest surnames
-    shortest_surnames = []    
+    shortest_surnames = []
     for i in range(len(names_list)):
         if len(names_list[i]) == shortest_name_lenght:
             shortest_surnames.append(names_list[i])
@@ -254,10 +254,10 @@ def get_age_by(surname, table):
     Provides age of the employee specified by surname
 
     Args:
-        surname (string): employee's surname
-        table (list): data table to work on
+        surname (string): Employee's surname
+        table (list): Data table to work on
     Returns:
-        integer: age
+        integer: Age
     """
     
     for row in table:
@@ -273,10 +273,10 @@ def get_email_by(surname, table):
     Provides email of the employee specified by surname
 
     Args:
-        surname (string): employee's surname
-        table (list): data table to work on
+        surname (string): Employee's surname
+        table (list): Data table to work on
     Returns:
-        string: employee's email 
+        string: Employee's email 
     """
 
     record_index = get_record_by_surname(surname, table)
@@ -289,10 +289,10 @@ def get_first_name_by(surname, table):
     Provides first name of the employee specified by surname
 
     Args:
-        surname (string): employee's surname
-        table (list): data table to work on
+        surname (string): Employee's surname
+        table (list): Data table to work on
     Returns:
-        string: employee's first name
+        string: Employee's first name
 
     """
     record_index = get_record_by_surname(surname, table)
@@ -305,10 +305,10 @@ def get_record_by_surname(surname, table):
     What it does: Gets record index by given surname
 
     Args:
-        table (list) : data table to work on
-        surname (string):
+        table (list) : Data table to work on
+        surname (string): Employee's surname
     Returns:
-        integer: record index
+        integer: Record index
     """
 
     for i in range(len(table)):
@@ -316,3 +316,4 @@ def get_record_by_surname(surname, table):
         if splited_name[1] == surname:
             record_index = i
     return record_index
+

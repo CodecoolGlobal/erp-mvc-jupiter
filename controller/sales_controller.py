@@ -58,13 +58,13 @@ def run():
 
         elif choice == "3":
             label = "The transactions made by given customer: "
-            customer_id = terminal_view.get_inputs(["Customer ID: "], "Provide the customer ID to search for his/her transactions")
+            customer_id = terminal_view.get_inputs(["Customer ID: "], "Provide customer's ID to search for his/her transactions")
             result = sales.filter_by_customer(table, customer_id[0])
             terminal_view.print_result(result, label)
 
         elif choice == "4":
             label = "Number of games sold by a given manufacturer: "
-            manufacturer = terminal_view.get_inputs(["Manufacturer: "], "Provide the manufacturer's name")
+            manufacturer = terminal_view.get_inputs(["Manufacturer: "], "Provide manufacturer's name")
             result = sales.filter_by_manufacturer(table, manufacturer[0])
             terminal_view.print_result(result, label)
 
