@@ -162,7 +162,7 @@ def get_oldest_person(table):
     oldest_birth_date = FUTURE
     for row in table:
         splited_birth_date = row[BIRTH_DATE].split('-')
-        if int(splited_birth_date[YEAR]) <= int(oldest_birth_date[YEAR]):
+        if int(splited_birth_date[0]) <= int(oldest_birth_date[0]):
             if int(splited_birth_date[0]) == int(oldest_birth_date[0]) and int(splited_birth_date[1]) <= int(oldest_birth_date[1]):
                 if int(splited_birth_date[1]) == int(oldest_birth_date[1]) and int(splited_birth_date[2]) <= int(oldest_birth_date[2]):
                     oldest_birth_date = splited_birth_date
